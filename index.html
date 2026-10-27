@@ -1,7 +1,1361 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Ali Shourideh | Economic Theory | Carnegie Mellon</title>
+<meta name="description" content="Research, working papers, and publications by Ali Shourideh, Associate Professor of Economics at Carnegie Mellon University, focused on mechanism design, information design, public finance, price discrimination, and pensions.">
+<link rel="canonical" href="https://www.shourideh.com/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f3efe7;
+    --stage: #fbf9f4;
+    --ink: #14130f;
+    --muted: #5d5a52;
+    --faint: #8a857a;
+    --line: #d9d3c5;
+    --accent: #c8381a;
+    --accent-ink: #ffffff;
+    --accent-wash: rgba(200, 56, 26, 0.12);
+    --plate: #ffffff;
+    --nav-bg: rgba(243, 239, 231, 0.9);
+    --display: "Fraunces", Georgia, "Times New Roman", serif;
+    --sans: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0f0e0c;
+      --stage: #171512;
+      --ink: #f0ece3;
+      --muted: #a39d90;
+      --faint: #766f63;
+      --line: #2c2a25;
+      --accent: #ff6a3d;
+      --accent-ink: #14130f;
+      --accent-wash: rgba(255, 106, 61, 0.16);
+      --plate: #f4f1ea;
+      --nav-bg: rgba(15, 14, 12, 0.88);
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0f0e0c;
+    --stage: #171512;
+    --ink: #f0ece3;
+    --muted: #a39d90;
+    --faint: #766f63;
+    --line: #2c2a25;
+    --accent: #ff6a3d;
+    --accent-ink: #14130f;
+    --accent-wash: rgba(255, 106, 61, 0.16);
+    --plate: #f4f1ea;
+    --nav-bg: rgba(15, 14, 12, 0.88);
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  button { font: inherit; color: inherit; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .wrap { max-width: 1140px; margin: 0 auto; padding-inline: 20px; }
+  .mono { font-family: var(--mono); }
+  .eyebrow {
+    font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* ---------- nav ---------- */
+  nav.top {
+    position: sticky; top: env(safe-area-inset-top, 0px); z-index: 60;
+    background: var(--nav-bg); backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  nav.top .wrap { display: flex; align-items: center; gap: 18px; height: 56px; }
+  .brand { font-family: var(--display); font-weight: 600; font-size: 17px; text-decoration: none; white-space: nowrap; }
+  .links { display: flex; gap: 20px; margin-left: auto; min-width: 0; overflow-x: auto; scrollbar-width: none; }
+  .links::-webkit-scrollbar { display: none; }
+  .links a {
+    font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.1em; text-transform: uppercase;
+    text-decoration: none; color: var(--muted); white-space: nowrap; padding: 6px 0;
+    border-bottom: 2px solid transparent;
+  }
+  .links a:hover { color: var(--ink); border-bottom-color: var(--accent); }
+  .theme-btn {
+    flex-shrink: 0; width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--line);
+    background: transparent; cursor: pointer; display: grid; place-items: center; color: var(--muted);
+  }
+  .theme-btn:hover { color: var(--ink); border-color: var(--ink); }
+
+  /* ---------- hero ---------- */
+  .hero { padding-block: clamp(48px, 9vw, 110px) clamp(36px, 6vw, 64px); }
+  .hero h1 {
+    font-family: var(--display); font-weight: 800; letter-spacing: -0.025em; line-height: 0.98;
+    font-size: clamp(44px, 9.2vw, 112px); margin: 18px 0 0; text-wrap: balance; max-width: 15ch;
+  }
+  .hero h1 em { font-style: italic; font-weight: 400; color: var(--accent); }
+  .hero-row { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 28px 56px; margin-top: clamp(28px, 4vw, 48px); align-items: end; }
+  @media (max-width: 760px) { .hero-row { grid-template-columns: minmax(0, 1fr); } }
+  .hero .lede { font-size: clamp(17px, 2vw, 20px); max-width: 52ch; margin: 0; color: var(--ink); }
+  .hero .who { margin: 0 0 10px; font-family: var(--mono); font-size: 12.5px; color: var(--muted); letter-spacing: 0.03em; }
+  .hero .contact { display: flex; flex-wrap: wrap; gap: 8px 22px; font-family: var(--mono); font-size: 13px; }
+  .hero .contact a { color: var(--accent); text-underline-offset: 3px; }
+
+  /* ---------- sections ---------- */
+  section { scroll-margin-top: calc(64px + env(safe-area-inset-top, 0px)); padding-block: clamp(36px, 6vw, 72px) 0; }
+  .sec-head { display: flex; align-items: baseline; gap: 16px; border-top: 2px solid var(--ink); padding-top: 14px; margin-bottom: 22px; }
+  .sec-head h2 { font-family: var(--display); font-weight: 600; font-size: clamp(26px, 3.6vw, 38px); letter-spacing: -0.01em; margin: 0; }
+  .sec-head .eyebrow { margin-left: auto; }
+
+  /* updates */
+  ul.updates { list-style: none; margin: 0; padding: 0; counter-reset: u; }
+  ul.updates li {
+    counter-increment: u; display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 4px;
+    padding: 14px 0; border-bottom: 1px solid var(--line); font-size: 17px;
+  }
+  ul.updates li::before { content: "0" counter(u); font-family: var(--mono); font-size: 12.5px; color: var(--accent); padding-top: 5px; }
+  ul.updates a { color: var(--accent); text-underline-offset: 3px; }
+
+  /* ---------- research stage ---------- */
+  .research-grid { display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 28px; align-items: start; }
+  .rail {
+    position: sticky; top: calc(70px + env(safe-area-inset-top, 0px));
+    max-height: calc(100vh - 96px); overflow-y: auto; padding-right: 6px;
+    scrollbar-width: thin; scrollbar-color: var(--line) transparent;
+  }
+  .rail h3 { font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin: 18px 0 6px; font-weight: 500; }
+  .rail h3:first-child { margin-top: 0; }
+  .rail button {
+    all: unset; box-sizing: border-box; display: block; width: 100%; cursor: pointer;
+    padding: 9px 10px 9px 12px; border-left: 3px solid var(--line); font-size: 14px; line-height: 1.35;
+    color: var(--muted);
+  }
+  .rail button:hover { color: var(--ink); border-left-color: var(--faint); }
+  .rail button:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+  .rail button[aria-current="true"] { color: var(--ink); border-left-color: var(--accent); background: var(--accent-wash); font-weight: 500; }
+  .rail button .soon { font-family: var(--mono); font-size: 10.5px; color: var(--faint); display: block; margin-top: 2px; }
+  .rail button .play { font-family: var(--mono); font-size: 10.5px; color: var(--accent); display: block; margin-top: 2px; letter-spacing: 0.04em; }
+
+  .stage {
+    background: var(--stage); border: 1px solid var(--line); border-radius: 14px;
+    padding: clamp(18px, 3vw, 34px); min-width: 0; min-height: 520px;
+    animation: rise 0.35s ease both;
+  }
+  @keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  .stage-kicker { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); }
+  .stage-title { font-family: var(--display); font-weight: 600; font-size: clamp(24px, 3.3vw, 38px); line-height: 1.12; letter-spacing: -0.015em; margin: 8px 0 6px; text-wrap: balance; }
+  .stage-authors { color: var(--muted); font-size: 15px; }
+  .stage-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+  .pill {
+    font-family: var(--mono); font-size: 12px; text-decoration: none; padding: 6px 12px;
+    border: 1px solid var(--ink); border-radius: 999px; color: var(--ink);
+  }
+  a.pill:hover { background: var(--ink); color: var(--bg); }
+  .pill.off { border-color: var(--line); color: var(--faint); }
+  .seg { display: inline-flex; border: 1px solid var(--ink); border-radius: 999px; padding: 3px; margin-top: 24px; }
+  .seg button { all: unset; cursor: pointer; font-family: var(--mono); font-size: 12px; padding: 6px 16px; border-radius: 999px; }
+  .seg button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); }
+  .seg button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .media { margin-top: 20px; display: grid; gap: 16px; }
+  .figure-box { border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: var(--stage); }
+  .plate { background: var(--plate); padding: 14px; display: flex; justify-content: center; }
+  .plate img { display: block; width: 100%; max-width: 560px; height: auto; }
+  .fig-caption { font-size: 13px; color: var(--muted); padding: 12px 14px; border-top: 1px solid var(--line); line-height: 1.5; }
+  .fig-caption b { color: var(--ink); font-family: var(--mono); font-weight: 500; font-size: 12px; }
+  .abstract { margin-top: 26px; max-width: 70ch; }
+  .abstract p { margin: 8px 0 0; font-size: 16px; line-height: 1.65; }
+  .nodraft { margin-top: 26px; color: var(--muted); font-style: italic; }
+  .stage-nav { display: flex; justify-content: space-between; gap: 12px; margin-top: 30px; padding-top: 16px; border-top: 1px solid var(--line); }
+  .stage-nav button { all: unset; cursor: pointer; font-family: var(--mono); font-size: 12.5px; color: var(--muted); padding: 4px 0; }
+  .stage-nav button:hover { color: var(--accent); }
+  .stage-nav button:disabled { visibility: hidden; }
+  .stage-nav button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  @media (max-width: 880px) {
+    .research-grid { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+    .rail { position: static; max-height: none; overflow-x: auto; overflow-y: hidden; display: flex; gap: 6px; padding: 0 0 8px; }
+    .rail h3 { display: none; }
+    .rail button { flex: 0 0 auto; width: 210px; border-left: 0; border-top: 3px solid var(--line); background: var(--stage); border-radius: 0 0 8px 8px; }
+    .rail button[aria-current="true"] { border-top-color: var(--accent); }
+    .rail button .t { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .stage { min-height: 0; }
+  }
+
+  /* ---------- interactive demos ---------- */
+  .demo { border: 1px solid var(--line); border-radius: 10px; background: var(--plate-demo, var(--stage)); padding: 14px; }
+  .dsvg { width: 100%; height: auto; display: block; touch-action: none; user-select: none; -webkit-user-select: none; }
+  .dsvg .ax { stroke: var(--line); stroke-width: 1; }
+  .dsvg .tx { fill: var(--muted); font-family: var(--mono); font-size: 12px; }
+  @media (max-width: 640px) { .dsvg .tx, .dsvg .tx-ink, .dsvg .tx-acc { font-size: 15px; } }
+  .dsvg .tx-ink { fill: var(--ink); font-family: var(--mono); font-size: 11.5px; }
+  .dsvg .tx-acc { fill: var(--accent); font-family: var(--mono); font-size: 11.5px; }
+  .dsvg .curve { fill: none; stroke: var(--ink); stroke-width: 2.5; stroke-linejoin: round; }
+  .dsvg .hull { fill: none; stroke: var(--accent); stroke-width: 2; stroke-dasharray: 6 5; }
+  .dsvg .wash { fill: var(--accent-wash); stroke: none; }
+  .dsvg .chord { stroke: var(--accent); stroke-width: 1.8; }
+  .dsvg .guide { stroke: var(--faint); stroke-width: 1; stroke-dasharray: 3 4; }
+  .dsvg .dot-ink { fill: var(--ink); }
+  .dsvg .dot-acc { fill: var(--accent); stroke: var(--stage); stroke-width: 2; }
+  .dsvg .handle { fill: var(--accent); stroke: var(--stage); stroke-width: 3; cursor: grab; }
+  .dsvg .handle:active { cursor: grabbing; }
+  .dsvg .handle:focus-visible { outline: none; stroke: var(--ink); }
+  .controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px 24px; margin-top: 10px; }
+  .controls label { font-family: var(--mono); font-size: 12px; color: var(--muted); display: grid; gap: 4px; }
+  .controls label span { display: flex; justify-content: space-between; }
+  .controls output { color: var(--ink); }
+  .controls input[type=range] { width: 100%; accent-color: var(--accent); }
+  .presets { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 10px; font-family: var(--mono); font-size: 12px; color: var(--muted); }
+  .presets button { cursor: pointer; background: transparent; border: 1px solid var(--line); border-radius: 999px; padding: 4px 12px; font-family: var(--mono); font-size: 12px; }
+  .presets button:hover { border-color: var(--accent); color: var(--accent); }
+  .readout { margin-top: 12px; padding: 10px 12px; border-left: 3px solid var(--accent); background: var(--accent-wash); font-size: 14.5px; line-height: 1.5; }
+  .demo-note { margin: 10px 0 0; font-size: 12.5px; color: var(--faint); line-height: 1.5; }
+
+  /* ---------- people etc ---------- */
+  .people { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 32px; }
+  @media (max-width: 640px) { .people { grid-template-columns: minmax(0, 1fr); } }
+  .person { padding: 13px 0; border-bottom: 1px solid var(--line); min-width: 0; }
+  .person .pname { font-family: var(--display); font-weight: 600; font-size: 18px; text-decoration: none; }
+  .person a.pname:hover { color: var(--accent); }
+  .person .pmeta { font-size: 13px; color: var(--muted); margin-top: 2px; }
+  .sub { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin: 26px 0 8px; }
+  .sub:first-of-type { margin-top: 0; }
+  .coauthors { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px 24px; }
+  @media (max-width: 700px) { .coauthors { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 440px) { .coauthors { grid-template-columns: minmax(0, 1fr); } }
+  .coauthors a, .coauthors span { padding: 9px 0; border-bottom: 1px solid var(--line); text-decoration: none; font-size: 16px; }
+  .coauthors a:hover { color: var(--accent); }
+  .courses { list-style: none; margin: 0; padding: 0; }
+  .courses li { display: flex; justify-content: space-between; gap: 12px; padding: 11px 0; border-bottom: 1px solid var(--line); font-size: 17px; }
+  .courses .syl { font-family: var(--mono); font-size: 12px; color: var(--faint); white-space: nowrap; align-self: center; }
+  ul.resources { margin: 0; padding-left: 20px; }
+  ul.resources li { margin-bottom: 8px; }
+  ul.resources a { color: var(--accent); text-underline-offset: 3px; }
+  footer { margin-top: clamp(48px, 8vw, 96px); padding-block: 28px 56px; border-top: 1px solid var(--line); font-family: var(--mono); font-size: 12px; color: var(--muted); }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .stage { animation: none; } }
+
+  /* =====================  v3: art | papers | bubbles  ===================== */
+  [hidden] { display: none !important; }
+  .page {   /* the painting runs from the left edge of the window */
+    padding: 0 28px 0 0;
+    display: grid; grid-template-columns: clamp(220px, 21vw, 420px) minmax(0, 520px) minmax(360px, 1fr); column-gap: clamp(40px, 4vw, 64px);
+  }
+  .art { position: relative; min-height: 100%; overflow: hidden; }
+  .art > svg { position: absolute; inset: 0 auto auto 0; width: 100%; display: block; }
+  .content { min-width: 0; }
+  .lane { position: relative; }
+  .content .hero { padding-block: clamp(40px, 6vw, 84px) 8px; }
+  .content .hero { container-type: inline-size; }
+  .content .hero-id { display: flex; align-items: center; gap: clamp(18px, 5cqi, 30px); margin-top: 18px; }
+  .content .hero h1 { font-size: clamp(38px, 10.5cqi, 60px); line-height: 1.02; max-width: none; margin: 0; }
+  .portrait { flex: none; width: clamp(150px, 40cqi, 220px); aspect-ratio: 1; border-radius: 0; overflow: hidden;
+    display: grid; place-items: center; background: var(--accent-wash); box-shadow: 0 0 0 1px var(--line); }
+  @container (max-width: 470px) {
+    .content .hero-id { flex-direction: column; align-items: flex-start; gap: 18px; }
+    .portrait { width: clamp(150px, 54cqi, 210px); }
+  }
+  .content .hero .cv-link { display: inline-block; margin-top: 14px; font-family: var(--display); font-weight: 600;
+    font-size: clamp(22px, 5.4cqi, 28px); line-height: 1.2; color: var(--accent); text-decoration: underline;
+    text-decoration-thickness: 2px; text-underline-offset: 5px; }
+  .content .hero .cv-link:hover { text-decoration-thickness: 3px; }
+  .content .hero .cv-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 2px; }
+  .portrait img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .portrait .initials { font-family: var(--display); font-weight: 600; font-size: clamp(30px, 3.4vw, 50px); color: var(--accent); letter-spacing: 0.02em; }
+  .content .hero-row { grid-template-columns: minmax(0, 1fr); gap: 18px; margin-top: 26px; }
+  .content .people { grid-template-columns: minmax(0, 1fr); }
+  .content .coauthors { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  nav.top .wrap { max-width: none; padding-inline: 28px; }
+  footer.wrap { max-width: none; margin-top: 0; padding-inline: 28px; }
+
+  /* papers */
+  .group { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted);
+    margin: 30px 0 4px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+  .group:first-of-type { margin-top: 0; }
+  .paper { scroll-margin-top: 84px; position: relative; padding: 16px 14px 16px 16px; margin: 0 -14px 0 -16px; border-left: 3px solid transparent; border-radius: 0 10px 10px 0; transition: background 0.2s ease, border-color 0.2s ease; }
+  .paper:hover { background: var(--accent-wash); }
+  .paper.open { border-left-color: var(--accent); background: var(--accent-wash); }
+  .p-title { all: unset; cursor: pointer; display: block; font-family: var(--display); font-weight: 600; font-size: 19.5px; line-height: 1.25; letter-spacing: -0.005em; text-wrap: pretty; }
+  .p-title:hover, .paper.open .p-title { color: var(--accent); }
+  .p-title:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+  .p-title .more { font-family: var(--mono); font-size: 11px; font-weight: 400; letter-spacing: 0.06em; color: var(--accent); margin-left: 6px; white-space: nowrap; }
+  .p-meta { color: var(--muted); font-size: 15px; margin-top: 4px; }
+  .p-status { font-family: var(--mono); font-size: 12px; color: var(--faint); margin-top: 3px; }
+  .p-links { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 9px; }
+  .p-links .pill { padding: 4px 11px; font-size: 11.5px; }
+
+  /* the hint in the right lane */
+  .lane-hint { position: absolute; left: 0; right: 0; font-size: 14px; color: var(--faint); border-left: 2px solid var(--line); padding: 2px 0 2px 14px; transition: opacity 0.3s ease; }
+
+  /* bubble */
+  #bubble {
+    position: absolute; z-index: 40; background: var(--stage); border: 1px solid var(--line); border-radius: 16px;
+    box-shadow: 0 14px 40px rgba(20, 19, 15, 0.12), 0 2px 6px rgba(20, 19, 15, 0.06);
+    padding: 22px 24px 24px; opacity: 0; transform: translateX(10px); transition: opacity 0.25s ease, transform 0.25s ease;
+  }
+  #bubble.show { opacity: 1; transform: none; }
+  #bubble::before {   /* pointer toward the paper */
+    content: ""; position: absolute; left: -9px; top: 26px; width: 16px; height: 16px; background: var(--stage);
+    border-left: 1px solid var(--line); border-bottom: 1px solid var(--line); transform: rotate(45deg);
+  }
+  .b-close { all: unset; cursor: pointer; position: absolute; top: 12px; right: 12px; width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; font-size: 20px; color: var(--muted); }
+  .b-close:hover { background: var(--accent-wash); color: var(--ink); }
+  .b-close:focus-visible { outline: 2px solid var(--accent); }
+  #bubble .stage-title { font-size: clamp(22px, 2vw, 28px); margin-right: 34px; }
+  #bubble .stage-title:focus { outline: none; }
+  #bubble .seg { margin-top: 18px; }
+  #bubble .media { margin-top: 16px; }
+  #bubble .abstract { margin-top: 20px; }
+  #bubble .abstract p { font-size: 15.5px; }
+  .b-sheet-bar { display: none; }
+  #bubble .b-summary { margin-top: 20px; }
+  #bubble .b-summary p { font-size: 18px; line-height: 1.5; margin: 6px 0 0; text-wrap: pretty; }
+  #bubble .b-summary + .abstract { margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--line); }
+
+  /* art: flat colors that mix where they overlap */
+  :root { --c1: #d9472b; --c2: #2b5aa6; --c3: #e3a72f; --c4: #2a8a78; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --c1: #ff6f4f; --c2: #6b9be6; --c3: #f2c255; --c4: #47bba4; } }
+  :root[data-theme="dark"] { --c1: #ff6f4f; --c2: #6b9be6; --c3: #f2c255; --c4: #47bba4; }
+  .artsvg .f1 { fill: var(--c1); } .artsvg .f2 { fill: var(--c2); } .artsvg .f3 { fill: var(--c3); } .artsvg .f4 { fill: var(--c4); }
+  .artsvg .s1, .artsvg .s2, .artsvg .s3, .artsvg .s4 { fill: none; stroke-width: 3.2; stroke-linecap: round; }
+  .artsvg .s1 { stroke: var(--c1); } .artsvg .s2 { stroke: var(--c2); } .artsvg .s3 { stroke: var(--c3); } .artsvg .s4 { stroke: var(--c4); }
+  .artsvg .mo > [class^="f"], .artsvg .mo > .fg { opacity: 0.88; }
+  .artsvg .mo > [class^="f"] + [class^="f"] { opacity: 0.8; }
+  .artsvg .soft { opacity: 0.13; }
+  .artsvg .ink { fill: none; stroke: var(--ink); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; opacity: 0.85; mix-blend-mode: normal; }
+  .artsvg .ink.thin { stroke-width: 1; opacity: 0.6; }
+  .artsvg .ink.thick { stroke-width: 2.6; }
+  .artsvg .ink.dash { stroke-dasharray: 4 4; }
+  .artsvg .inkfill { fill: var(--ink); opacity: 0.9; mix-blend-mode: normal; }
+  .artsvg .thread { fill: none; stroke: var(--ink); stroke-width: 1; opacity: 0.25; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .artsvg .soft { opacity: 0.16; } }
+  :root[data-theme="dark"] .artsvg .soft { opacity: 0.16; }
+
+  /* tablet: art | papers, bubble slides in from the right */
+  @media (max-width: 1100px) {
+    .page { grid-template-columns: clamp(150px, 22vw, 230px) minmax(0, 1fr); column-gap: 40px; }
+    .lane { display: none; }
+    #bubble {
+      position: fixed; top: 0; right: 0; bottom: 0; left: auto !important; width: min(500px, 92vw) !important; z-index: 90;
+      border-radius: 16px 0 0 16px; overflow-y: auto; overscroll-behavior: contain; transform: translateX(24px);
+    }
+    #bubble::before { display: none; }
+  }
+  /* phone: a narrow strip of the painting down the left edge, the bubble as a full-screen sheet */
+  @media (max-width: 760px) {
+    .page { grid-template-columns: 44px minmax(0, 1fr); column-gap: 16px; padding: 0 16px 0 0; }
+    #bubble { width: 100% !important; border-radius: 0; padding: 0 16px 28px; transform: translateY(16px); }
+    .b-sheet-bar { display: flex; position: sticky; top: 0; z-index: 2; align-items: center; justify-content: space-between; background: var(--stage); padding: 12px 0 10px; border-bottom: 1px solid var(--line); margin-bottom: 14px; font-family: var(--mono); font-size: 12px; color: var(--muted); }
+    #bubble > .b-close { display: none; }
+    .b-sheet-bar .b-close { position: static; }
+    .paper { margin: 0 -10px; padding: 14px 10px; }
+    nav.top .wrap, footer.wrap { padding-inline: 16px; }
+  }
+  body.sheet-open { overflow: hidden; }
+  @media (prefers-reduced-motion: reduce) { #bubble, .paper { transition: none; } }
+
+  /* substance version: solid pictograms */
+  .artsvg .mo > [class^="f"], .artsvg .mo > [class^="f"] + [class^="f"] { opacity: 0.96; }
+  .artsvg .gt { fill: var(--ink); font-family: var(--display); font-weight: 600; }
+  .artsvg .bubble, .artsvg .blank { fill: var(--stage); stroke: var(--ink); stroke-width: 1.2; }
+  .artsvg .paperdot { fill: var(--stage); }
+  .artsvg .mo > .dim { opacity: 0.3; }
+  .artsvg .mo > .tint { opacity: 0.45; }
+  .artsvg .pipe { fill: none; stroke: var(--c2); stroke-linecap: round; opacity: 0.85; }
+
+</style>
+</head>
 <body>
-<h1>Hello World</h1>
-<p>I'm hosted with GitHub Pages.</p>
+<nav class="top">
+  <div class="wrap">
+    <a class="brand" href="#top">Ali Shourideh</a>
+    <div class="links">
+      <a href="#updates">Updates</a>
+      <a href="#research">Research</a>
+      <a href="#students">PhD Students</a>
+      <a href="#coauthors">Coauthors</a>
+      <a href="#teaching">Teaching</a>
+      <a href="#resources">Resources</a>
+      <a href="https://www.andrew.cmu.edu/user/ashourid/mathecon-2026/" target="_blank" rel="noopener">CEME'26 ↗</a>
+    </div>
+    <button class="theme-btn" id="theme-btn" type="button" aria-label="Switch light or dark theme" title="Switch theme">◐</button>
+  </div>
+</nav>
+
+<div class="page">
+  <div class="art" id="art" aria-hidden="true"><svg class="artsvg" id="art-svg"></svg></div>
+
+  <main class="content" id="top">
+    <header class="hero">
+      <div class="eyebrow">Economic theory · Tepper School of Business, Carnegie Mellon</div>
+      <div class="hero-id">
+        <div class="portrait"><img src="data:image/jpeg;base64,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" alt="Ali Shourideh" width="296" height="296"></div>
+        <h1>Ali Shourideh</h1>
+      </div>
+      <div class="hero-row">
+        <p class="lede">I am an economic theorist. My research is on mechanism design and its applications in taxation, market regulation, and communication.</p>
+        <div>
+          <p class="who">Associate Professor of Economics</p>
+          <div class="contact">
+            <span>shourideh [at] gmail [dot] com</span>
+          </div>
+          <a class="cv-link" href="https://www.andrew.cmu.edu/user/ashourid/papers/CV_2026.pdf" target="_blank" rel="noopener">CV (PDF) ↗</a>
+        </div>
+      </div>
+    </header>
+
+    <section id="updates">
+      <div class="sec-head"><h2>Updates</h2><span class="eyebrow">Latest</span></div>
+      <ul class="updates" id="updates-list"><li><span>New version of <a href="#p-indicator" data-open="indicator">Indicator Choice in Pay-for-Performance</a> with Majid Mahzoon and Ariel Zetlin-Jones</span></li><li><span>New version of <a href="#p-rating" data-open="rating">Optimal Rating Design under Moral Hazard</a> with Maryam Saeedi</span></li><li><span>The 2026 NBER/NSF/CEME Conference in Mathematical Economics is hosted in Pittsburgh in the fall · <a href="https://www.andrew.cmu.edu/user/ashourid/mathecon-2026/" target="_blank" rel="noopener">details</a></span></li></ul>
+    </section>
+
+    <section id="research">
+      <div class="sec-head"><h2>Research</h2><span class="eyebrow">Click a paper to open it</span></div>
+      <div id="papers"><div class="group">New papers</div><article class="paper" id="p-indicator" data-i="0">
+        <button class="p-title" type="button" aria-expanded="false" aria-controls="bubble">Indicator Choice in Pay-for-Performance</button>
+        <div class="p-meta">with Majid Mahzoon and Ariel Zetlin-Jones</div>
+        <div class="p-status">September 2026</div>
+        <div class="p-links"><a class="pill" href="https://www.andrew.cmu.edu/user/ashourid/papers/finalDraft.pdf" target="_blank" rel="noopener">Draft ↗</a><a class="pill" href="https://www.andrew.cmu.edu/user/ashourid/slides/MHDiscAliCETC.pdf" target="_blank" rel="noopener">Slides ↗</a></div>
+      </article><article class="paper" id="p-rating" data-i="1">
+        <button class="p-title" type="button" aria-expanded="false" aria-controls="bubble">Optimal Rating Design under Moral Hazard</button>
+        <div class="p-meta">with Maryam Saeedi</div>
+        <div class="p-status">New Draft: August 2026</div>
+        <div class="p-links"><a class="pill" href="https://www.andrew.cmu.edu/user/ashourid/papers/draft14Ali.pdf" target="_blank" rel="noopener">Draft ↗</a><a class="pill" href="https://www.andrew.cmu.edu/user/ashourid/slides/SITE.pdf" target="_blank" rel="noopener">Slides ↗</a></div>
+      </article><article class="paper" id="p-gooddata" data-i="2">
+        <button class="p-title" type="button" aria-expanded="false" aria-controls="bubble">Good Data and Bad Data: The Welfare Effects of Price Discrimination</button>
+        <div class="p-meta">with Maryam Farboodi and Nima Haghpanah</div>
+        <div class="p-status">Reject &amp; Resubmit at AER · November 2025</div>
+        <div class="p-links"><a class="pill" href="https://www.andrew.cmu.edu/user/ashourid/papers/FHS02.pdf" target="_blank" rel="noopener">Draft ↗</a><a class="pill" href="https://www.andrew.cmu.edu/user/ashourid/slides/GerzenseeAli25.pdf" target="_blank" rel="noopener">Slides ↗</a></div>
+      </article><article class="paper" id="p-dac" data-i="3">
+        <button class="p-title" type="button" aria-expanded="false" aria-controls="bubble">Divide and Confer: Aggregating Information without Verification</button>
+        <div class="p-meta">with James Best, Dan Quigley and Maryam Saeedi</div>
+        <div class="p-status">R&amp;R at Review of Economic Studies · May 2026</div>
+        <div class="p-links"><a class="pill" href="https://www.andrew.cmu.edu/user/ashourid/papers/DaC_resubmit_1.pdf" target="_blank" rel="noopener">Draft ↗</a><a class="pill" href="https://www.andrew.cmu.edu/user/ashourid/slides/Lueven.pdf" target="_blank" rel="noopener">Slides ↗</a></div>
+      </article><article class="paper" id="p-wait" data-i="4">
+        <button class="p-title" type="button" aria-expanded="false" aria-controls="bubble">Getting the Agent to Wait</button>
+        <div class="p-meta">with Maryam Saeedi and Yikang Shen</div>
+        <div class="p-status">February 2025</div>
+        <div class="p-links"><a class="pill" href="https://www.andrew.cmu.edu/user/ashourid/papers/EngagementDraft10.pdf" target="_blank" rel="noopener">Draft ↗</a><a class="pill" href="https://www.andrew.cmu.edu/user/ashourid/slides/Wait.pdf" target="_blank" rel="noopener">Slides ↗</a></div>
+      </article><article class="paper" id="p-network" data-i="5">
+        <button class="p-title" type="button" aria-expanded="false" aria-controls="bubble">Optimal Mechanism Design for Multiple Goods via Network Flows</button>
+        <div class="p-meta">with Alexey Kushnir</div>
+        <div class="p-status">Draft Coming Soon</div>
+        
+      </article><article class="paper" id="p-matching" data-i="6">
+        <button class="p-title" type="button" aria-expanded="false" aria-controls="bubble">Information Disclosure in Matching Markets</button>
+        <div class="p-meta">with Hugo Hopenhayn and Maryam Saeedi</div>
+        <div class="p-status">Coming Soon</div>
+        
+      </article><div class="group">Publications</div><article class="paper" id="p-marketmaking" data-i="7">
+        <button class="p-title" type="button" aria-expanded="false" aria-controls="bubble">Market Making with Search and Information Frictions</button>
+        <div class="p-meta">with Ben Lester, Venky Venkateswaran, and Ariel Zetlin-Jones</div>
+        <div class="p-status">Journal of Economic Theory · September 2023</div>
+        <div class="p-links"><a class="pill" href="https://www.andrew.cmu.edu/user/ashourid/papers/LSVZ2_JET.pdf" target="_blank" rel="noopener">Draft ↗</a><a class="pill" href="https://www.andrew.cmu.edu/user/ashourid/slides/LiqLSVZ_slides_Emory.pdf" target="_blank" rel="noopener">Slides ↗</a></div>
+      </article><article class="paper" id="p-tradepolicy" data-i="8">
+        <button class="p-title" type="button" aria-expanded="false" aria-controls="bubble">Optimal Trade Policy with Trade Imbalances</button>
+        <div class="p-meta">with Mostafa Beshkar</div>
+        <div class="p-status">Journal of Monetary Economics · January 2020</div>
+        <div class="p-links"><a class="pill" href="https://www.andrew.cmu.edu/user/ashourid/papers/BeshkarShourideh2020.pdf" target="_blank" rel="noopener">Draft ↗</a><a class="pill" href="https://www.andrew.cmu.edu/user/ashourid/slides/2019-09-18-BS-slides-InsTED.pdf" target="_blank" rel="noopener">Slides ↗</a></div>
+      </article><article class="paper" id="p-retirement" data-i="9">
+        <button class="p-title" type="button" aria-expanded="false" aria-controls="bubble">Retirement Financing: An Optimal Reform Approach</button>
+        <div class="p-meta">with Roozbeh Hosseini</div>
+        <div class="p-status">Econometrica · July 2019</div>
+        <div class="p-links"><a class="pill" href="https://www.andrew.cmu.edu/user/ashourid/papers/ECTA15088.pdf" target="_blank" rel="noopener">Draft ↗</a><a class="pill" href="https://www.andrew.cmu.edu/user/ashourid/slides/HSRetirementSlides-Rooz-ATLFED.pdf" target="_blank" rel="noopener">Slides ↗</a></div>
+      </article><article class="paper" id="p-screening" data-i="10">
+        <button class="p-title" type="button" aria-expanded="false" aria-controls="bubble">Screening and Adverse Selection in a Frictional Market</button>
+        <div class="p-meta">with Ben Lester, Venky Venkateswaran, and Ariel Zetlin-Jones</div>
+        <div class="p-status">Journal of Political Economy · February 2019</div>
+        <div class="p-links"><a class="pill" href="https://www.andrew.cmu.edu/user/ashourid/papers/JPEfinal.pdf" target="_blank" rel="noopener">Draft ↗</a><a class="pill" href="https://www.andrew.cmu.edu/user/ashourid/slides/AdvSel_slides_Apr2017.pdf" target="_blank" rel="noopener">Slides ↗</a></div>
+      </article><article class="paper" id="p-extfinance" data-i="11">
+        <button class="p-title" type="button" aria-expanded="false" aria-controls="bubble">External Financing and the Role of Financial Frictions over the Business Cycle: Measurement and Theory</button>
+        <div class="p-meta">with Ariel Zetlin-Jones</div>
+        <div class="p-status">Journal of Monetary Economics · December 2017</div>
+        <div class="p-links"><a class="pill" href="https://www.andrew.cmu.edu/user/ashourid/papers/JMESZ.pdf" target="_blank" rel="noopener">Draft ↗</a><a class="pill" href="https://www.andrew.cmu.edu/user/ashourid/slides/slides_frictions16_stern.pdf" target="_blank" rel="noopener">Slides ↗</a><a class="pill" href="https://www.andrew.cmu.edu/user/ashourid/papers/JMESZApp.pdf" target="_blank" rel="noopener">Appendix ↗</a></div>
+      </article><article class="paper" id="p-reputation" data-i="12">
+        <button class="p-title" type="button" aria-expanded="false" aria-controls="bubble">Reputation and Persistence of Adverse Selection in Secondary Loan Markets</button>
+        <div class="p-meta">with V. V. Chari and Ariel Zetlin-Jones</div>
+        <div class="p-status">American Economic Review · December 2014</div>
+        <div class="p-links"><a class="pill" href="https://www.andrew.cmu.edu/user/ashourid/papers/asrev17.pdf" target="_blank" rel="noopener">Draft ↗</a><a class="pill" href="https://www.andrew.cmu.edu/user/ashourid/slides/slides_asrev.pdf" target="_blank" rel="noopener">Slides ↗</a></div>
+      </article><article class="paper" id="p-familysize" data-i="13">
+        <button class="p-title" type="button" aria-expanded="false" aria-controls="bubble">Optimal Contracting and Dynamic Altruism: Consumption and Family Size</button>
+        <div class="p-meta">with Roozbeh Hosseini and Larry E. Jones</div>
+        <div class="p-status">Journal of Economic Theory · September 2013</div>
+        <div class="p-links"><a class="pill" href="https://www.andrew.cmu.edu/user/ashourid/papers/HJS_JET.pdf" target="_blank" rel="noopener">Draft ↗</a><a class="pill" href="https://www.andrew.cmu.edu/user/ashourid/papers/onlineapp01rooz.pdf" target="_blank" rel="noopener">Appendix ↗</a></div>
+      </article><article class="paper" id="p-pensionsimple" data-i="14">
+        <button class="p-title" type="button" aria-expanded="false" aria-controls="bubble">Optimal Pension Systems with Simple Instruments</button>
+        <div class="p-meta">with Mikhail Golosov, Maxim Troshkin and Aleh Tsyvinski</div>
+        <div class="p-status">American Economic Review P&amp;P · May 2013</div>
+        <div class="p-links"><a class="pill" href="https://www.andrew.cmu.edu/user/ashourid/papers/simpleTroshkinetal.pdf" target="_blank" rel="noopener">Draft ↗</a></div>
+      </article><div class="group">Working papers</div><article class="paper" id="p-tradepf" data-i="15">
+        <button class="p-title" type="button" aria-expanded="false" aria-controls="bubble">Inequality, Redistribution, and Optimal Trade Policy: A Public Finance Approach</button>
+        <div class="p-meta">with Roozbeh Hosseini</div>
+        <div class="p-status">February 2022</div>
+        <div class="p-links"><a class="pill" href="https://www.andrew.cmu.edu/user/ashourid/papers/TradePFdraft10.pdf" target="_blank" rel="noopener">Draft ↗</a><a class="pill" href="https://www.andrew.cmu.edu/user/ashourid/slides/SlidesTradePF-2022-RichFed.pdf" target="_blank" rel="noopener">Slides ↗</a></div>
+      </article><article class="paper" id="p-sovereign" data-i="16">
+        <button class="p-title" type="button" aria-expanded="false" aria-controls="bubble">Political Economy of Sovereign Debt: A Theory of Cycles of Populism and Austerity</button>
+        <div class="p-meta">with Alessandro Dovis and Mikhail Golosov</div>
+        <div class="p-status">New Version Coming Soon</div>
+        <div class="p-links"><a class="pill" href="https://www.andrew.cmu.edu/user/ashourid/papers/DGS.pdf" target="_blank" rel="noopener">Draft ↗</a><a class="pill" href="https://www.andrew.cmu.edu/user/ashourid/slides/DGSBGSE.pdf" target="_blank" rel="noopener">Slides ↗</a></div>
+      </article><article class="paper" id="p-mutual" data-i="17">
+        <button class="p-title" type="button" aria-expanded="false" aria-controls="bubble">Efficiency and Adverse Selection: On the Role of Mutual Contracts</button>
+        <div class="p-meta">with V. V. Chari and Ariel Zetlin-Jones</div>
+        <div class="p-status">Draft Coming Soon</div>
+        <div class="p-links"><a class="pill" href="https://www.andrew.cmu.edu/user/ashourid/slides/ASMutual_ASSA_Jan_2020.pdf" target="_blank" rel="noopener">Slides ↗</a></div>
+      </article><article class="paper" id="p-wealth" data-i="18">
+        <button class="p-title" type="button" aria-expanded="false" aria-controls="bubble">Optimal Taxation of Wealthy Individual</button>
+        <div class="p-meta">with Nick Hoffman</div>
+        <div class="p-status">New Version Coming Soon</div>
+        
+      </article><article class="paper" id="p-pensionincentives" data-i="19">
+        <button class="p-title" type="button" aria-expanded="false" aria-controls="bubble">Incentives and Efficiency of Pension Systems</button>
+        <div class="p-meta">with Maxim Troshkin</div>
+        <div class="p-status">July 2017</div>
+        <div class="p-links"><a class="pill" href="https://www.andrew.cmu.edu/user/ashourid/papers/Troshkindraft56.pdf" target="_blank" rel="noopener">Draft ↗</a></div>
+      </article></div>
+    </section>
+
+    <section id="students">
+      <div class="sec-head"><h2>PhD Students</h2></div>
+      <div class="sub">Current students</div>
+      <div class="people" id="current-students-list"><div class="person"><a class="pname" href="https://www.cmu.edu/tepper/programs/phd/program/student-profiles/phd-student-kiran-aditya.html" target="_blank" rel="noopener">Aditya Kiran</a><div class="pmeta">Microeconomics, Market Design · Stability and Information in Matching Markets</div></div><div class="person"><a class="pname" href="https://www.cmu.edu/tepper/programs/phd/program/student-profiles/phd-student-chung-so-young-iris.html" target="_blank" rel="noopener">Iris Chung</a><div class="pmeta">Microeconomics · Content Provision with Digital Addiction</div></div><div class="person"><a class="pname" href="https://www.cmu.edu/tepper/programs/phd/program/student-profiles/phd-student-pal-aranya.html" target="_blank" rel="noopener">Aranya Pal</a><div class="pmeta">Microeconomics · Community Formation in Repeated Games</div></div><div class="person"><a class="pname" href="https://www.cmu.edu/tepper/programs/phd/program/student-profiles/phd-student-zhang-heyang.html" target="_blank" rel="noopener">Heyang Zhang</a><div class="pmeta">Banking and Macroeconomics · Contagion in Banking Networks</div></div><div class="person"><a class="pname" href="https://www.cmu.edu/tepper/programs/phd/program/student-profiles/phd-student-vaziri-amirhossein.html" target="_blank" rel="noopener">Amirhossein Vaziri</a><div class="pmeta">Microeconomics, Political Economy · Reputation, Cheap Talk and Persuasion</div></div><div class="person"><a class="pname" href="https://www.cmu.edu/tepper/programs/phd/program/student-profiles/phd-student-akbari-parand.html" target="_blank" rel="noopener">Parand Akbari</a><div class="pmeta">Macro · Differential Impact of AI on Workers: A Multi-Factor Approach</div></div><div class="person"><a class="pname" href="https://www.cmu.edu/tepper/programs/phd/program/student-profiles/phd-student-nguyen-hoang-anh.html" target="_blank" rel="noopener">Hoang Anh Nguyen</a><div class="pmeta">Applied Economics · Saving Policies with Persistent Shocks (co-advised with Liyan Shi)</div></div><div class="person"><a class="pname" href="https://sites.google.com/view/mhnam/research" target="_blank" rel="noopener">Minhyuk Nam</a><div class="pmeta">Environmental, Microeconomics · A Delegation Approach to Environmental Treaties</div></div><div class="person"><a class="pname" href="https://arnavsood.com/" target="_blank" rel="noopener">Arnav Sood</a><div class="pmeta">Microeconomics · Frequentist Persuasion</div></div><div class="person"><a class="pname" href="https://sites.google.com/view/yikangshen/home?authuser=0" target="_blank" rel="noopener">Yikang Shen</a><div class="pmeta">Microeconomics, Media Economics · Getting the Agent to Wait (with Maryam Saeedi)</div></div><div class="person"><a class="pname" href="https://www.cmu.edu/tepper/programs/phd/program/student-profiles/phd-student-sun-shuoqi.html" target="_blank" rel="noopener">Shuoqi Sun</a><div class="pmeta">Microeconomics, Information Economics · Essays on Consumer Information in Online Markets</div></div></div>
+      <div class="sub">Recent graduates</div>
+      <div class="people" id="graduate-students-list"><div class="person"><a class="pname" href="https://www.martinmichelini.com/research" target="_blank" rel="noopener">Martin Michelini</a><div class="pmeta">Public Finance, Applied Economics · Matching and Optimal Taxation · 2025 · now at CMU</div></div><div class="person"><a class="pname" href="https://sites.google.com/andrew.cmu.edu/nicholas-hoffman-economics/home?session_id=session-pxlitb4ow" target="_blank" rel="noopener">Nick Hoffman</a><div class="pmeta">Macroeconomics, Public Economics · Wealth, Entrepreneurship, and Economic Policy · 2025 · now at Joint Committee on Taxation</div></div><div class="person"><a class="pname" href="https://www.majidmahzoon.com/" target="_blank" rel="noopener">Majid Mahzoon</a><div class="pmeta">Microeconomics, Organizational Economics · Hierarchical Bayesian Persuasion · 2023 · now at University of Central Florida</div></div><div class="person"><a class="pname" href="https://sites.google.com/view/andremouton" target="_blank" rel="noopener">Andre Mouton</a><div class="pmeta">Macroeconomics, Labor Economics · Firm-Bias, Skill-Bias, and Wage Inequality · 2022 · now at Wake Forest University</div></div><div class="person"><span class="pname">Xuege Zhang</span><div class="pmeta">Macroeconomics, Trade, Urban · External Economies of Scale and Place-Based Industrial Policies · 2022 · now at IMF</div></div><div class="person"><a class="pname" href="https://sites.google.com/view/hozdenoren/" target="_blank" rel="noopener">Hakki Ozdenoren</a><div class="pmeta">Macroeconomics, Labor · Technological Advancements and Labor Reallocation · 2020 · now at Revelio Labs</div></div><div class="person"><a class="pname" href="https://sites.google.com/view/wentingyu/home" target="_blank" rel="noopener">Wenting Yu</a><div class="pmeta">Macroeconomics, Trade · A Tale of Many Cities: Industrial Networks and Urban Productivity · 2019 · now at Amazon</div></div><div class="person"><span class="pname">Daniel Wills</span><div class="pmeta">Macroeconomics, Public Finance · Taxing Firms Facing Financial Frictions · 2017 · now at Asofondos de Colombia</div></div></div>
+    </section>
+
+    <section id="coauthors">
+      <div class="sec-head"><h2>Coauthors</h2></div>
+      <div class="coauthors" id="coauthors-list"><a href="https://www.andrew.cmu.edu/user/msaeedi/" target="_blank" rel="noopener">Maryam Saeedi</a><a href="https://www.andrew.cmu.edu/user/azj/" target="_blank" rel="noopener">Ariel Zetlin-Jones</a><a href="https://www.andrew.cmu.edu/user/akushnir/" target="_blank" rel="noopener">Alexey Kushnir</a><a href="https://sites.google.com/site/jamesalaricbest/" target="_blank" rel="noopener">James Best</a><a href="https://www.liyanshi.com/" target="_blank" rel="noopener">Liyan Shi</a><a href="http://users.econ.umn.edu/~lej/students.html" target="_blank" rel="noopener">Larry E. Jones</a><a href="https://www.minneapolisfed.org/people/v-v-chari" target="_blank" rel="noopener">V. V. Chari</a><a href="https://www.roozbeh-hosseini.com/" target="_blank" rel="noopener">Roozbeh Hosseini</a><a href="https://www.benjaminrlester.com/" target="_blank" rel="noopener">Benjamin Lester</a><a href="https://sites.google.com/site/vvenkate/" target="_blank" rel="noopener">Venky Venkateswaran</a><a href="https://voices.uchicago.edu/golosov/" target="_blank" rel="noopener">Mikhail Golosov</a><a href="https://economics.yale.edu/people/aleh-tsyvinski/papers" target="_blank" rel="noopener">Aleh Tsyvinski</a><a href="https://www.alessandrodovis.com/" target="_blank" rel="noopener">Alessandro Dovis</a><a href="https://danielquigley.weebly.com/" target="_blank" rel="noopener">Dan Quigley</a><a href="https://sites.google.com/site/maryamfarboodi/research" target="_blank" rel="noopener">Maryam Farboodi</a><a href="https://sites.psu.edu/haghpanah/" target="_blank" rel="noopener">Nima Haghpanah</a><a href="https://mbeshkar.pages.iu.edu/" target="_blank" rel="noopener">Mostafa Beshkar</a><span>Maxim Troshkin</span></div>
+    </section>
+
+    <section id="teaching">
+      <div class="sec-head"><h2>Teaching</h2></div>
+      <div class="sub">PhD classes</div>
+      <ul class="courses" id="phd-courses-list"><li><span>Mechanism Design</span><span class="syl">syllabus soon</span></li><li><span>Microeconomics 3</span><span class="syl">syllabus soon</span></li><li><span>Macroeconomics 1</span><span class="syl">syllabus soon</span></li><li><span>Macroeconomics 2</span><span class="syl">syllabus soon</span></li><li><span>Macroeconomics 3</span><span class="syl">syllabus soon</span></li><li><span>Public Economics</span><span class="syl">syllabus soon</span></li></ul>
+      <div class="sub">MBA &amp; undergraduate classes</div>
+      <ul class="courses" id="mba-courses-list"><li><span>Fundamentals of Business</span><span class="syl">syllabus soon</span></li><li><span>Strategies in Information Markets</span><span class="syl">syllabus soon</span></li><li><span>Statistical Decision Making</span><span class="syl">syllabus soon</span></li><li><span>Intermediate Macroeconomics</span><span class="syl">syllabus soon</span></li></ul>
+    </section>
+
+    <section id="resources">
+      <div class="sec-head"><h2>Resources</h2></div>
+      <ul class="resources" id="resources-list"><li><a href="https://www.andrew.cmu.edu/user/ashourid/Fireside.pdf" target="_blank" rel="noopener">Research Presentation to Students on Economics (Fireside chat slides)</a></li><li><a href="https://www.aeaweb.org/resources/students/grad-prep/job-market" target="_blank" rel="noopener">AEA Resources on Job Market Preparation</a></li><li><a href="https://www.amazon.com/Guide-Young-Economist-MIT-Press/dp/026251589X" target="_blank" rel="noopener">William Thomson — “A Guide for Young Economists” (MIT Press)</a></li><li><a href="https://www.amazon.com/Writing-Well-Classic-Guide-Nonfiction/dp/0060891548" target="_blank" rel="noopener">William Zinsser — “On Writing Well”</a></li></ul>
+    </section>
+  </main>
+
+  <aside class="lane" aria-hidden="true"><p class="lane-hint" id="lane-hint">Click any paper to open its summary and abstract here.</p></aside>
+</div>
+
+<div id="bubble" role="dialog" aria-modal="false" aria-labelledby="b-title" hidden></div>
+
+<footer class="wrap">Ali Shourideh · Tepper School of Business, Carnegie Mellon University</footer>
+
+<script>
+const UPDATES = [
+  'New version of "Divide and Confer" with James Best, Dan Quigley, and Maryam Saeedi',
+  'New version of "Optimal Rating Design under Moral Hazard" with Maryam Saeedi',
+  '2026 NBER/NSF/CEME Conference in Mathematical Economics, hosted in Pittsburgh (fall) &middot; <a href="https://www.andrew.cmu.edu/user/ashourid/mathecon-2026/" target="_blank" rel="noopener">details</a>'
+];
+
+/* Figures: real images extracted from each paper's PDF. */
+const FIG_RATING = { number: 2, image: "",
+  caption: "An illustration of the concavification of the gain function Γ and construction of optimal ratings. Where the concave envelope departs from the curve, outcomes are pooled; where it hugs the curve, the rating reveals." };
+const FIG_GOODDATA = { number: 4, image: "",
+  caption: "The (a) best and (b) worst directions for information: over the triangle of market segments, the arrows show the local direction in which adding information helps most or hurts most." };
+const FIG_DAC = { number: 1, image: "",
+  caption: "Optimal mechanism in the large economy: accept on an intermediate interval, reject at the extremes. The dashed curve is the distribution of the receiver's payout from acceptance in the infinite-population limit." };
+const FIG_WAIT = { number: 3, image: "",
+  caption: "A mean-preserving spread of revelation time: the curve is the agent's utility e^(−δA T), the dashed line marks 1/2, and spreading a fixed expected revelation time raises the agent's expected utility." };
+const FIG_INDICATOR = { number: 1, image: "",
+  caption: "The geometric representation of information structures in the space of likelihood ratios (ℓ₁, ℓ₂)." };
+const FIG_MARKETMAKING = { number: 3, image: "",
+  caption: "Effect of the meeting rate π on dealers' beliefs and on bid-ask spreads over time, shown for three values of π." };
+const FIG_TRADEPOLICY = { number: 4, image: "",
+  caption: "Export and import taxes in the baseline calibration with σ = 5, η = 1/2." };
+const FIG_RETIREMENT_INCOME = { number: 4, image: "",
+  caption: "Test of Pareto optimality for status quo policies, income tax side: the left panel plots the two sides of the inequality; the right panel shows the change in earnings wedges required for it to hold." };
+const FIG_RETIREMENT = { number: 5, image: "",
+  caption: "Test of Pareto optimality for status quo policies, asset tax side: the required change in the savings wedge at ages 30, 40 and 50 (left) and at ages 65, 75 and 85 (right)." };
+const FIG_SCREENING = { number: 3, image: "",
+  caption: "Equilibrium regions, as competition and the severity of adverse selection vary." };
+const FIG_EXTFINANCE = { number: 4, image: "",
+  caption: "Effects of a financial shock on macroeconomic outcomes in the model: solid lines show the benchmark with both public and private firms, dashed lines show only private firms." };
+const FIG_REPUTATION = { number: 1, image: "",
+  caption: "Equilibrium regions in the infinite horizon model with stochastic spreads, in reputation and collateral shock, with the threshold μ*(v)." };
+const FIG_FAMILYSIZE = { number: 1, image: "",
+  caption: "Panel (a): population growth under full information (solid) and private information (dashed). Panel (b): fertility for high and low productivity shocks." };
+
+const NEW_PAPERS = [
+  { title: "Optimal Rating Design under Moral Hazard", authors: "with Maryam Saeedi", status: "New Draft: August 2026",
+    draft: "https://www.andrew.cmu.edu/user/ashourid/papers/draft14Ali.pdf", slides: "https://www.andrew.cmu.edu/user/ashourid/slides/SITE.pdf",
+    abstract: `We study optimal rating design under moral hazard and strategic manipulation. An intermediary observes a noisy indicator of effort and commits to a rating policy that shapes market beliefs and pay. Whether optimal ratings reveal or censor information depends on how effort shifts the outcome distribution: when effort increases tail risk, optimal ratings use lower censorship, pooling poor outcomes to encourage risk-taking; when effort reduces tail risk, upper censorship discourages negligence. In multi-task settings with window dressing, a monotone relative informativeness property again delivers upper- or lower-censorship ratings. In an application to redistributive test design, optimal tests can feature mid-censorship. These results follow from a general characterization of optimal ratings via concavification of a gain function, accommodating violations of monotone likelihood ratios and distributional concerns.`,
+    figures: [FIG_RATING], open: false },
+  { title: "Good Data and Bad Data: The Welfare Effects of Price Discrimination", authors: "with Maryam Farboodi and Nima Haghpanah", status: "Reject &amp; Resubmit at AER &middot; November 2025",
+    draft: "https://www.andrew.cmu.edu/user/ashourid/papers/FHS02.pdf", slides: "https://www.andrew.cmu.edu/user/ashourid/slides/GerzenseeAli25.pdf",
+    abstract: `We study how a monopolist's use of consumer data for price discrimination affects welfare. To answer this question, we develop a model of market segmentation subject to residual uncertainty. We fully characterize when data usage monotonically increases or decreases welfare or when the effect is non-monotone. The characterization reduces the problem to one with only two demand curves, and gives a condition for the two-demand-curves case that highlights that information affects welfare in three distinct ways. In the non-monotone case, we provide tight bounds on the welfare effects of information and identify the best local direction for providing additional information.`,
+    figures: [FIG_GOODDATA] },
+  { title: "Divide and Confer: Aggregating Information without Verification", authors: "with James Best, Dan Quigley and Maryam Saeedi", status: "R&amp;R at Review of Economic Studies &middot; May 2026",
+    draft: "https://www.andrew.cmu.edu/user/ashourid/papers/DaC_resubmit_1.pdf", slides: "https://www.andrew.cmu.edu/user/ashourid/slides/Lueven.pdf",
+    abstract: `We study mechanisms for aggregating information divided across a large population of biased senders. Each sender privately observes an unconditionally independent signal about an unknown state, so no sender's report can be verified against another's. A receiver makes a binary accept/reject decision whose payoffs depend on the state. Even though cross-verification is impossible, we show the receiver can benefit from informational division. We introduce a novel incentive-compatibility-in-the-large approach that studies optimal design via the large-population limit. For fixed population size, optimal mechanisms are in general complex. However, we show that in the limit they converge to a simple mechanism that depends only on the payout from acceptance, and punishes excessive consensus in the direction of the common bias. These surplus burning punishments yield payoffs bounded away from the first best; the resulting inefficiency demonstrates how our concept of informational division is distinct from standard models of information in large populations.`,
+    figures: [FIG_DAC] },
+  { title: "Getting the Agent to Wait", authors: "with Maryam Saeedi and Yikang Shen", status: "February 2025",
+    draft: "https://www.andrew.cmu.edu/user/ashourid/papers/EngagementDraft10.pdf", slides: "https://www.andrew.cmu.edu/user/ashourid/slides/Wait.pdf",
+    abstract: `We examine the strategic interaction between an expert (principal) maximizing engagement and an agent seeking swift information. Our analysis reveals: when priors align, relative patience determines optimal disclosure -- impatient agents induce gradual revelation, while impatient principals cause delayed, abrupt revelation. When priors disagree, catering to the bias often emerges, with the principal initially providing signals aligned with the agent's bias. With private agent beliefs, we observe two phases: one engaging both agents, followed by catering to one type. Comparing personalized and non-personalized strategies, we find faster information revelation in the non-personalized case, but higher quality information in the personalized case.`,
+    figures: [FIG_WAIT] },
+  { title: "Indicator Choice in Pay-for-Performance", authors: "with Majid Mahzoon and Ariel Zetlin-Jones", status: "December 2022",
+    draft: "https://www.andrew.cmu.edu/user/ashourid/papers/MHDiscdraft03.pdf", slides: "https://www.andrew.cmu.edu/user/ashourid/slides/MHDiscAliCETC.pdf",
+    abstract: `We study the classic principal-agent model when the signal observed by the principal is chosen by the agent. We fully characterize the optimal information structure from an agent's perspective in a general moral hazard setting. Unlike standard information design, the full distribution of beliefs is relevant to the principal. We show that the problem can be mapped into a geometrical game between the principal and the agent in the space of likelihood ratios. We use this representation result to show that coarse contracts are sufficient: the agent can achieve her best with binary signals. Additionally, we characterize conditions under which the agent is able to extract all the surplus and implement the efficient allocation under full information. Finally, we show that when effort and performance are one-dimensional, under a general class of models, threshold signals are optimal.`,
+    figures: [FIG_INDICATOR] },
+  { title: "Optimal Mechanism Design for Multiple Goods via Network Flows", authors: "with Alexey Kushnir", status: "Draft Coming Soon", draft: "", slides: "", abstract: "" },
+  { title: "Information Disclosure in Matching Markets", authors: "with Hugo Hopenhayn and Maryam Saeedi", status: "Coming Soon", draft: "", slides: "", abstract: "" }
+];
+
+const PUBLICATIONS = [
+  { title: "Market Making with Search and Information Frictions", authors: "with Ben Lester, Venky Venkateswaran, and Ariel Zetlin-Jones", status: "Journal of Economic Theory &middot; September 2023",
+    draft: "https://www.andrew.cmu.edu/user/ashourid/papers/LSVZ2_JET.pdf", slides: "https://www.andrew.cmu.edu/user/ashourid/slides/LiqLSVZ_slides_Emory.pdf",
+    abstract: `We develop a dynamic model of trading through market-makers that incorporates two canonical sources of illiquidity: trading (or search) frictions, which imply that investors can only rebalance their portfolio with a delay; and information frictions, which imply that market-makers face some degree of adverse selection. We use this model to study the effects of various technological innovations and regulatory initiatives that have reduced trading frictions in over-the-counter markets. Our main result is that reducing trading frictions can lead to less liquidity, as measured by bid-ask spreads. The key insight is that more frequent trading makes investors' behavior less dependent on asset quality. As a result, dealers learn about asset quality more slowly and set wider bid-ask spreads to compensate for this increase in uncertainty. We also show that widening bid-ask spreads do not necessarily correspond to a decline in trading volume or welfare.`,
+    figures: [FIG_MARKETMAKING] },
+  { title: "Optimal Trade Policy with Trade Imbalances", authors: "with Mostafa Beshkar", status: "Journal of Monetary Economics &middot; January 2020",
+    draft: "https://www.andrew.cmu.edu/user/ashourid/papers/BeshkarShourideh2020.pdf", slides: "https://www.andrew.cmu.edu/user/ashourid/slides/2019-09-18-BS-slides-InsTED.pdf",
+    abstract: `Optimal trade and capital control policies are characterized under a dynamic model with endogenous trade imbalances. In the absence of capital controls, optimal trade protection is counter-cyclical. Optimal use of capital controls, however, dampens the time-variation of optimal trade taxes. Generally, trade imbalances are not predictive of optimal policy. However, optimal trade policy and equilibrium trade imbalances move together when a country grows consistently faster or slower than the rest of the world. Quantifying the model for the U.S. economy shows that welfare gains from optimal policy are largely due to static terms-of-trade effects, implying that gains from time-varying tariffs or capital controls are small.`,
+    figures: [FIG_TRADEPOLICY] },
+  { title: "Retirement Financing: An Optimal Reform Approach", authors: "with Roozbeh Hosseini", status: "Econometrica &middot; July 2019",
+    draft: "https://www.andrew.cmu.edu/user/ashourid/papers/ECTA15088.pdf", slides: "https://www.andrew.cmu.edu/user/ashourid/slides/HSRetirementSlides-Rooz-ATLFED.pdf",
+    abstract: `We study Pareto optimal policy reforms aimed at overhauling retirement financing as an integral part of the tax and transfer system. Our framework for policy analysis is a heterogeneous-agent overlapping-generations model that performs well in matching the aggregate and distributional features of the U.S. economy. We present a test of Pareto optimality that identifies the main source of inefficiency in the status quo policies. Our test suggests that lack of asset subsidies late in life is the main source of inefficiency when annuity markets are incomplete. We solve for Pareto optimal policy reforms and show that progressive asset subsidies provide a powerful tool for Pareto optimal reforms. On the other hand, earnings tax reforms do not always yield efficiency gains. We implement our Pareto optimal policy reform in an economy that features demographic change. The reform reduces the present discounted value of net resources consumed by each generation by about 7 to 11 percent in the steady state. These gains amount to a one-time lump-sum transfer to the initial generation equal to 10.5 percent of GDP.`,
+    figures: [FIG_RETIREMENT_INCOME, FIG_RETIREMENT] },
+  { title: "Screening and Adverse Selection in a Frictional Market", authors: "with Ben Lester, Venky Venkateswaran, and Ariel Zetlin-Jones", status: "Journal of Political Economy &middot; February 2019",
+    draft: "https://www.andrew.cmu.edu/user/ashourid/papers/JPEfinal.pdf", slides: "https://www.andrew.cmu.edu/user/ashourid/slides/AdvSel_slides_Apr2017.pdf",
+    abstract: `We incorporate a search-theoretic model of imperfect competition into a standard model of asymmetric information with unrestricted contracts. We characterize the unique equilibrium and use our characterization to explore the interaction between adverse selection, screening, and imperfect competition. We show that the relationship between an agent's type, the quantity he trades, and the price he pays is jointly determined by the severity of adverse selection and the concentration of market power. Therefore, quantifying the effects of adverse selection requires controlling for market structure. We also show that increasing competition and reducing informational asymmetries can decrease welfare.`,
+    figures: [FIG_SCREENING] },
+  { title: "External Financing and the Role of Financial Frictions over the Business Cycle: Measurement and Theory", authors: "with Ariel Zetlin-Jones", status: "Journal of Monetary Economics &middot; December 2017",
+    draft: "https://www.andrew.cmu.edu/user/ashourid/papers/JMESZ.pdf", slides: "https://www.andrew.cmu.edu/user/ashourid/slides/slides_frictions16_stern.pdf", appendix: "https://www.andrew.cmu.edu/user/ashourid/papers/JMESZApp.pdf",
+    abstract: `Empirically, there is substantial cross-sectional variation in firms' use of external funds: roughly 80% of investment by privately held firms is financed externally, compared to 20% for publicly traded firms. In a model consistent with privately held and publicly traded firms' use of external funds, financial shocks generate only a modest response of output. This exercise casts doubt on the ability of financial shocks to generate significant economic fluctuations and emphasizes the role of non-financial linkages in understanding the importance of financial shocks.`,
+    figures: [FIG_EXTFINANCE] },
+  { title: "Reputation and Persistence of Adverse Selection in Secondary Loan Markets", authors: "with V. V. Chari and Ariel Zetlin-Jones", status: "American Economic Review &middot; December 2014",
+    draft: "https://www.andrew.cmu.edu/user/ashourid/papers/asrev17.pdf", slides: "https://www.andrew.cmu.edu/user/ashourid/slides/slides_asrev.pdf",
+    abstract: `The volume of new issuances in secondary loan markets fluctuates over time and falls when collateral values fall. We develop a model with adverse selection and reputation that is consistent with such fluctuations. Adverse selection ensures that the volume of trade falls when collateral values fall. Without reputation, the equilibrium has separation, adverse selection is quickly resolved, and trade volume is independent of collateral value. With reputation, the equilibrium has pooling and adverse selection persists over time. The equilibrium is efficient unless collateral values are low and originators' reputational levels are low. We describe policies that can implement efficient outcomes.`,
+    figures: [FIG_REPUTATION] },
+  { title: "Optimal Contracting and Dynamic Altruism: Consumption and Family Size", authors: "with Roozbeh Hosseini and Larry E. Jones", status: "Journal of Economic Theory &middot; September 2013",
+    draft: "https://www.andrew.cmu.edu/user/ashourid/papers/HJS_JET.pdf", appendix: "https://www.andrew.cmu.edu/user/ashourid/papers/onlineapp01rooz.pdf",
+    abstract: `We use a Barro-Becker model of endogenous fertility, in which parents are subject to idiosyncratic shocks that are private information (either to labor productivity or taste for leisure), to study the efficient degree of consumption inequality in the long run. The planner uses the trade-off between family size and future consumption and leisure, to provide incentives for workers to reveal their shocks. We show that in this environment, the optimal dynamic contract no longer features immiseration in consumption. We also discuss the implications of the model on the long run properties of family size in the optimal contract and show that the long run trend in dynasty size can be either positive or negative depending on parameters.`,
+    figures: [FIG_FAMILYSIZE] },
+  { title: "Optimal Pension Systems with Simple Instruments", authors: "with Mikhail Golosov, Maxim Troshkin and Aleh Tsyvinski", status: "American Economic Review P&amp;P &middot; May 2013",
+    draft: "https://www.andrew.cmu.edu/user/ashourid/papers/simpleTroshkinetal.pdf", abstract: "We analyze optimal pension systems relying on simple policy instruments." }
+];
+
+const WORKING_PAPERS = [
+  { title: "Inequality, Redistribution, and Optimal Trade Policy: A Public Finance Approach", authors: "with Roozbeh Hosseini", status: "February 2022",
+    draft: "https://www.andrew.cmu.edu/user/ashourid/papers/TradePFdraft10.pdf", slides: "https://www.andrew.cmu.edu/user/ashourid/slides/SlidesTradePF-2022-RichFed.pdf",
+    abstract: `We explore the relationship between optimal trade and redistributive policies when the gains from trade are unequally distributed. We use a competitive trade model with input-output linkages where trade affects relative wages and the reallocation of workers across various sectors is frictional. We study how income taxes and trade policies should be designed in order to balance the efficiency gains from trade with the costs associated with the resulting increased inequality. We show that for a large class of global production structures, the global trade of goods and services must be undistorted even when personal taxes are incomplete -- in other words, barriers to trade such as tariffs are never optimal. In contrast, producer taxes in the form of value-added taxes (VAT) that are differentially levied on different sectors play a crucial role in redistributing the gains from trade. We provide formulas that highlight the main determinants of optimal VAT and non-linear income taxes. Finally, in a quantitative version of our model, we study the optimal response to the rise of China in international trade: differential VAT taxes play the main role of redistributing the gains from trade, while income taxes do not.` },
+  { title: "Political Economy of Sovereign Debt: A Theory of Cycles of Populism and Austerity", authors: "with Alessandro Dovis and Mikhail Golosov", status: "New Version Coming Soon",
+    draft: "https://www.andrew.cmu.edu/user/ashourid/papers/DGS.pdf", slides: "https://www.andrew.cmu.edu/user/ashourid/slides/DGSBGSE.pdf",
+    abstract: `We study optimal fiscal and redistributive policies in an open economy without commitment. Due to its redistributive motives, the government's incentive to default on its external debt is affected by inequality. We show that in equilibrium the economy endogenously fluctuates between two regimes. In the first regime, the government borrows from abroad, spends generously on transfers and keeps inequality low. In the second regime, it implements austerity-like policies by cutting transfers, reducing foreign debt and increasing inequality. The equilibrium dynamics resemble the populist cycles documented in many developing countries.` },
+  { title: "Efficiency and Adverse Selection: On the Role of Mutual Contracts", authors: "with V. V. Chari and Ariel Zetlin-Jones", status: "Draft Coming Soon",
+    draft: "", slides: "https://www.andrew.cmu.edu/user/ashourid/slides/ASMutual_ASSA_Jan_2020.pdf", abstract: "" },
+  { title: "Optimal Taxation of Wealthy Individual", authors: "with Nick Hoffman", status: "New Version Coming Soon", draft: "", slides: "", abstract: "" },
+  { title: "Incentives and Efficiency of Pension Systems", authors: "with Maxim Troshkin", status: "July 2017",
+    draft: "https://www.andrew.cmu.edu/user/ashourid/papers/Troshkindraft56.pdf", slides: "",
+    abstract: `We study efficiency and incentive costs of social insurance and redistribution when retirement is endogenous. We characterize Pareto optima, show the forces determining optimal retirement ages, and derive the properties of optimal retirement distortions. It is optimal for a pension system to reward later retirement independent of whether efficient retirement ages increase or decrease in productivity. When individual heterogeneity and the parameters of status-quo policies are calibrated to U.S. income taxes, Social Security, individual earnings, hours, and retirement ages, optimal pensions generate not only significant welfare gains but also aggregate output gains.` }
+];
+
+const CURRENT_STUDENTS = [
+  { name: "Aditya Kiran", field: "Microeconomics, Market Design", note: "Stability and Information in Matching Markets", link: "https://www.cmu.edu/tepper/programs/phd/program/student-profiles/phd-student-kiran-aditya.html" },
+  { name: "Iris Chung", field: "Microeconomics", note: "Content Provision with Digital Addiction", link: "https://www.cmu.edu/tepper/programs/phd/program/student-profiles/phd-student-chung-so-young-iris.html" },
+  { name: "Aranya Pal", field: "Microeconomics", note: "Community Formation in Repeated Games", link: "https://www.cmu.edu/tepper/programs/phd/program/student-profiles/phd-student-pal-aranya.html" },
+  { name: "Heyang Zhang", field: "Banking and Macroeconomics", note: "Contagion in Banking Networks", link: "https://www.cmu.edu/tepper/programs/phd/program/student-profiles/phd-student-zhang-heyang.html" },
+  { name: "Amirhossein Vaziri", field: "Microeconomics, Political Economy", note: "Reputation, Cheap Talk and Persuasion", link: "https://www.cmu.edu/tepper/programs/phd/program/student-profiles/phd-student-vaziri-amirhossein.html" },
+  { name: "Parand Akbari", field: "Macro", note: "Differential Impact of AI on Workers: A Multi-Factor Approach", link: "https://www.cmu.edu/tepper/programs/phd/program/student-profiles/phd-student-akbari-parand.html" },
+  { name: "Hoang Anh Nguyen", field: "Applied Economics", note: "Saving Policies with Persistent Shocks (co-advised with Liyan Shi)", link: "https://www.cmu.edu/tepper/programs/phd/program/student-profiles/phd-student-nguyen-hoang-anh.html" },
+  { name: "Minhyuk Nam", field: "Environmental, Microeconomics", note: "A Delegation Approach to Environmental Treaties", link: "https://sites.google.com/view/mhnam/research" },
+  { name: "Arnav Sood", field: "Microeconomics", note: "Frequentist Persuasion", link: "https://arnavsood.com/" },
+  { name: "Yikang Shen", field: "Microeconomics, Media Economics", note: "Getting the Agent to Wait (with Maryam Saeedi)", link: "https://sites.google.com/view/yikangshen/home?authuser=0" },
+  { name: "Shuoqi Sun", field: "Microeconomics, Information Economics", note: "Essays on Consumer Information in Online Markets", link: "https://www.cmu.edu/tepper/programs/phd/program/student-profiles/phd-student-sun-shuoqi.html" }
+];
+
+const GRADUATE_STUDENTS = [
+  { name: "Martin Michelini", field: "Public Finance, Applied Economics", note: "Matching and Optimal Taxation &middot; 2025 &middot; now at CMU", link: "https://www.martinmichelini.com/research" },
+  { name: "Nick Hoffman", field: "Macroeconomics, Public Economics", note: "Wealth, Entrepreneurship, and Economic Policy &middot; 2025 &middot; now at Joint Committee on Taxation", link: "https://sites.google.com/andrew.cmu.edu/nicholas-hoffman-economics/home?session_id=session-pxlitb4ow" },
+  { name: "Majid Mahzoon", field: "Microeconomics, Organizational Economics", note: "Hierarchical Bayesian Persuasion &middot; 2023 &middot; now at University of Central Florida", link: "https://www.majidmahzoon.com/" },
+  { name: "Andre Mouton", field: "Macroeconomics, Labor Economics", note: "Firm-Bias, Skill-Bias, and Wage Inequality &middot; 2022 &middot; now at Wake Forest University", link: "https://sites.google.com/view/andremouton" },
+  { name: "Xuege Zhang", field: "Macroeconomics, Trade, Urban", note: "External Economies of Scale and Place-Based Industrial Policies &middot; 2022 &middot; now at IMF", link: "" },
+  { name: "Hakki Ozdenoren", field: "Macroeconomics, Labor", note: "Technological Advancements and Labor Reallocation &middot; 2020 &middot; now at Revelio Labs", link: "https://sites.google.com/view/hozdenoren/" },
+  { name: "Wenting Yu", field: "Macroeconomics, Trade", note: "A Tale of Many Cities: Industrial Networks and Urban Productivity &middot; 2019 &middot; now at Amazon", link: "https://sites.google.com/view/wentingyu/home" },
+  { name: "Daniel Wills", field: "Macroeconomics, Public Finance", note: "Taxing Firms Facing Financial Frictions &middot; 2017 &middot; now at Asofondos de Colombia", link: "" }
+];
+
+const COAUTHORS = [
+  { name: "Maryam Saeedi", link: "https://www.andrew.cmu.edu/user/msaeedi/" },
+  { name: "Ariel Zetlin-Jones", link: "https://www.andrew.cmu.edu/user/azj/" },
+  { name: "Alexey Kushnir", link: "https://www.andrew.cmu.edu/user/akushnir/" },
+  { name: "James Best", link: "https://sites.google.com/site/jamesalaricbest/" },
+  { name: "Liyan Shi", link: "https://www.liyanshi.com/" },
+  { name: "Larry E. Jones", link: "http://users.econ.umn.edu/~lej/students.html" },
+  { name: "V. V. Chari", link: "https://www.minneapolisfed.org/people/v-v-chari" },
+  { name: "Roozbeh Hosseini", link: "https://www.roozbeh-hosseini.com/" },
+  { name: "Benjamin Lester", link: "https://www.benjaminrlester.com/" },
+  { name: "Venky Venkateswaran", link: "https://sites.google.com/site/vvenkate/" },
+  { name: "Mikhail Golosov", link: "https://voices.uchicago.edu/golosov/" },
+  { name: "Aleh Tsyvinski", link: "https://economics.yale.edu/people/aleh-tsyvinski/papers" },
+  { name: "Alessandro Dovis", link: "https://www.alessandrodovis.com/" },
+  { name: "Dan Quigley", link: "https://danielquigley.weebly.com/" },
+  { name: "Maryam Farboodi", link: "https://sites.google.com/site/maryamfarboodi/research" },
+  { name: "Nima Haghpanah", link: "https://sites.psu.edu/haghpanah/" },
+  { name: "Mostafa Beshkar", link: "https://mbeshkar.pages.iu.edu/" },
+  { name: "Maxim Troshkin", link: "" }
+];
+
+const PHD_COURSES = ["Mechanism Design", "Microeconomics 3", "Macroeconomics 1", "Macroeconomics 2", "Macroeconomics 3", "Public Economics"];
+const MBA_COURSES = ["Fundamentals of Business", "Strategies in Information Markets", "Statistical Decision Making", "Intermediate Macroeconomics"];
+
+const RESOURCES = [
+  { text: "Research Presentation to Students on Economics (Fireside chat slides)", link: "https://www.andrew.cmu.edu/user/ashourid/Fireside.pdf" },
+  { text: "AEA Resources on Job Market Preparation", link: "https://www.aeaweb.org/resources/students/grad-prep/job-market" },
+  { text: "William Thomson — “A Guide for Young Economists” (MIT Press)", link: "https://www.amazon.com/Guide-Young-Economist-MIT-Press/dp/026251589X" },
+  { text: "William Zinsser — “On Writing Well”", link: "https://www.amazon.com/Writing-Well-Classic-Guide-Nonfiction/dp/0060891548" }
+];
+
+
+
+/* =========================================================================
+   INTERACTIVE DEMOS  (illustrations of each paper's key idea)
+   ========================================================================= */
+const SVGNS = 'http://www.w3.org/2000/svg';
+const f2 = x => (Math.round(x * 100) / 100).toFixed(2);
+
+/* Getting the Agent to Wait: the agent's utility e^(-δT) is convex in revelation time T,
+   so spreading out revelation time (keeping its mean fixed) raises her expected utility. */
+function demoWait(host) {
+  host.innerHTML = `
+    <div class="demo">
+      <svg class="dsvg" viewBox="0 0 560 300" role="img" aria-label="Convex utility curve with two possible revelation times and the chord between them"></svg>
+      <div class="controls">
+        <label><span>Spread of revelation time <output id="ws-o"></output></span><input id="ws" type="range" min="0" max="2" step="0.01" value="1.2"></label>
+        <label><span>Agent's impatience δ <output id="wd-o"></output></span><input id="wd" type="range" min="0.2" max="1.5" step="0.01" value="0.6"></label>
+      </div>
+      <div class="readout" id="w-ro"></div>
+      <p class="demo-note">An illustration of the logic of Figure 3, not the paper's full model. The expected time of revelation is held fixed at 2. The agent's utility from learning at time T is e<sup>−δT</sup>.</p>
+    </div>`;
+  const svg = host.querySelector('svg');
+  const sEl = host.querySelector('#ws'), dEl = host.querySelector('#wd');
+  const X = t => 48 + t * 123, Y = u => 262 - u * 240;
+  const mk = (tag, attrs, text) => { const e = document.createElementNS(SVGNS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (text != null) e.textContent = text; svg.appendChild(e); return e; };
+  function draw() {
+    const s = +sEl.value, d = +dEl.value, m = 2, u = t => Math.exp(-d * t);
+    host.querySelector('#ws-o').textContent = f2(s);
+    host.querySelector('#wd-o').textContent = f2(d);
+    svg.innerHTML = '';
+    [0, 0.5, 1].forEach(v => { mk('line', { x1: 48, x2: 540, y1: Y(v), y2: Y(v), class: 'ax' }); mk('text', { x: 40, y: Y(v) + 4, 'text-anchor': 'end', class: 'tx' }, v); });
+    [0, 1, 2, 3, 4].forEach(t => mk('text', { x: X(t), y: 284, 'text-anchor': 'middle', class: 'tx' }, t));
+    mk('text', { x: 294, y: 299, 'text-anchor': 'middle', class: 'tx' }, 'T = time of revelation');
+    let path = '';
+    for (let i = 0; i <= 80; i++) { const t = i / 20; path += (i ? 'L' : 'M') + X(t).toFixed(1) + ' ' + Y(u(t)).toFixed(1); }
+    mk('path', { d: path, class: 'curve' });
+    const a = m - s, b = m + s, ua = u(a), ub = u(b), eu = (ua + ub) / 2, um = u(m);
+    mk('line', { x1: X(m), x2: X(m), y1: Y(0), y2: Y(Math.max(eu, um)), class: 'guide' });
+    mk('line', { x1: X(a), y1: Y(ua), x2: X(b), y2: Y(ub), class: 'chord' });
+    mk('circle', { cx: X(a), cy: Y(ua), r: 5.5, class: 'dot-acc' });
+    mk('circle', { cx: X(b), cy: Y(ub), r: 5.5, class: 'dot-acc' });
+    mk('circle', { cx: X(m), cy: Y(um), r: 5, class: 'dot-ink' });
+    mk('circle', { cx: X(m), cy: Y(eu), r: 5.5, class: 'dot-acc' });
+    mk('text', { x: X(m) + 12, y: Y(um) + 16, class: 'tx-ink' }, 'u(2): revealed at T = 2');
+    if (s > 0.04) mk('text', { x: X(m) + 12, y: Y(eu) - 8, class: 'tx-acc' }, 'average of the two');
+    mk('text', { x: 52, y: 14, class: 'tx' }, 'u(T) = e^(−δT)');
+    host.querySelector('#w-ro').innerHTML =
+      `Revealed at exactly T = 2: utility <b>${f2(um)}</b>. Revealed at ${f2(a)} or ${f2(b)} with equal chance (same average time): expected utility <b>${f2(eu)}</b>. ` +
+      (s > 0.04 ? `Spreading it out is worth <b>+${f2(eu - um)}</b> to the agent.` : `Move the spread slider to see what spreading does.`);
+  }
+  sEl.addEventListener('input', draw); dEl.addEventListener('input', draw);
+  draw();
+}
+
+/* Optimal Rating Design: ratings pool outcomes where the concave envelope (concavification)
+   of the gain function lies above the function itself. */
+function demoRating(host) {
+  const PRESETS = {
+    's': [0.10, 0.14, 0.30, 0.66, 0.82, 0.86],
+    'humps': [0.25, 0.72, 0.30, 0.34, 0.80, 0.42],
+    'concave': [0.08, 0.50, 0.72, 0.84, 0.92, 0.96]
+  };
+  let ys = PRESETS.s.slice();
+  host.innerHTML = `
+    <div class="demo">
+      <svg class="dsvg" viewBox="0 0 560 300" role="group" aria-label="Draggable gain function and its concave envelope"></svg>
+      <div class="presets"><span>Try a shape:</span>
+        <button type="button" data-p="s">S-shaped</button><button type="button" data-p="humps">Two humps</button><button type="button" data-p="concave">Concave</button>
+        <span>or drag the dots</span></div>
+      <div class="readout" id="r-ro"></div>
+      <p class="demo-note">An illustration of the idea behind Figure 2, not the paper's calibrated model. The solid line is a gain function Γ you can reshape. The dashed line is its concave envelope. Where the envelope lies above Γ (shaded), the optimal rating pools outcomes; where the two coincide, it reveals them.</p>
+    </div>`;
+  const svg = host.querySelector('svg');
+  const X = x => 40 + x * 480, Y = y => 270 - y * 240, N = 5;
+  const xs = [0, 1, 2, 3, 4, 5].map(i => i / N);
+  function curveY(x) {
+    let k = Math.min(N - 1, Math.floor(x * N + 1e-9));
+    const x0 = xs[k], x1 = xs[k + 1], h = x1 - x0, t = (x - x0) / h;
+    const slope = i => i === 0 ? (ys[1] - ys[0]) / (xs[1] - xs[0]) : i === N ? (ys[N] - ys[N - 1]) / (xs[N] - xs[N - 1]) : (ys[i + 1] - ys[i - 1]) / (xs[i + 1] - xs[i - 1]);
+    const m0 = slope(k) * h, m1 = slope(k + 1) * h, t2 = t * t, t3 = t2 * t;
+    return (2 * t3 - 3 * t2 + 1) * ys[k] + (t3 - 2 * t2 + t) * m0 + (-2 * t3 + 3 * t2) * ys[k + 1] + (t3 - t2) * m1;
+  }
+  function hullOf(P) {
+    const h = [];
+    for (const p of P) {
+      while (h.length >= 2) {
+        const o = h[h.length - 2], a = h[h.length - 1];
+        if ((a[0] - o[0]) * (p[1] - o[1]) - (a[1] - o[1]) * (p[0] - o[0]) >= 0) h.pop(); else break;
+      }
+      h.push(p);
+    }
+    return h;
+  }
+  const mk = (tag, attrs, text) => { const e = document.createElementNS(SVGNS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (text != null) e.textContent = text; svg.appendChild(e); return e; };
+  function draw() {
+    svg.innerHTML = '';
+    mk('line', { x1: 40, x2: 520, y1: Y(0), y2: Y(0), class: 'ax' });
+    mk('line', { x1: 40, x2: 40, y1: Y(0), y2: Y(1), class: 'ax' });
+    mk('text', { x: 40, y: 292, 'text-anchor': 'start', class: 'tx' }, 'worst outcome');
+    mk('text', { x: 520, y: 292, 'text-anchor': 'middle', class: 'tx' }, 'best outcome');
+    mk('text', { x: 46, y: 14, class: 'tx' }, 'gain Γ');
+    const S = 160, pts = [];
+    for (let i = 0; i <= S; i++) { const x = i / S; pts.push([x, Math.max(-0.02, Math.min(1.02, curveY(x)))]); }
+    const hull = hullOf(pts);
+    const hy = x => { for (let i = 0; i < hull.length - 1; i++) { if (x <= hull[i + 1][0] + 1e-12) { const [a, b] = [hull[i], hull[i + 1]]; return a[1] + (b[1] - a[1]) * (x - a[0]) / (b[0] - a[0]); } } return hull[hull.length - 1][1]; };
+    const top = pts.map(p => X(p[0]).toFixed(1) + ' ' + Y(hy(p[0])).toFixed(1));
+    const bot = pts.slice().reverse().map(p => X(p[0]).toFixed(1) + ' ' + Y(p[1]).toFixed(1));
+    mk('path', { d: 'M' + top.join('L') + 'L' + bot.join('L') + 'Z', class: 'wash' });
+    mk('path', { d: 'M' + hull.map(p => X(p[0]).toFixed(1) + ' ' + Y(p[1]).toFixed(1)).join('L'), class: 'hull' });
+    mk('path', { d: 'M' + pts.map(p => X(p[0]).toFixed(1) + ' ' + Y(p[1]).toFixed(1)).join('L'), class: 'curve' });
+    xs.forEach((x, i) => {
+      const c = mk('circle', { cx: X(x), cy: Y(ys[i]), r: 9, class: 'handle', tabindex: 0, 'data-i': i, role: 'slider', 'aria-label': 'Gain at point ' + (i + 1), 'aria-valuemin': 0, 'aria-valuemax': 1, 'aria-valuenow': f2(ys[i]) });
+    });
+    // pooled intervals
+    const gaps = pts.map(p => hy(p[0]) - p[1] > 0.006);
+    const runs = []; let st = null;
+    gaps.forEach((g, i) => { if (g && st === null) st = i; if ((!g || i === gaps.length - 1) && st !== null) { runs.push([pts[st][0], pts[g ? i : i - 1][0]]); st = null; } });
+    const share = runs.reduce((s, r) => s + (r[1] - r[0]), 0);
+    const pct = v => Math.round(v * 100);
+    host.querySelector('#r-ro').innerHTML = runs.length
+      ? `The rating <b>pools</b> outcomes between ${runs.map(r => `<b>${pct(r[0])}%</b> and <b>${pct(r[1])}%</b>`).join(' and between ')} of the outcome range (${pct(share)}% of outcomes), and reveals the rest.`
+      : `The envelope coincides with Γ everywhere, so the optimal rating <b>reveals</b> outcomes fully. Drag a dot to create a dip and watch pooling appear.`;
+  }
+  function setFromEvent(i, ev) {
+    const r = svg.getBoundingClientRect(), sc = 300 / r.height;
+    const yPix = (ev.clientY - r.top) * sc;
+    ys[i] = Math.max(0.03, Math.min(0.97, (270 - yPix) / 240));
+    draw();
+    const el = svg.querySelector(`[data-i="${i}"]`); if (el) el.focus({ preventScroll: true });
+  }
+  let drag = null;
+  svg.addEventListener('pointerdown', e => {
+    const h = e.target.closest('.handle'); if (!h) return;
+    drag = +h.dataset.i; svg.setPointerCapture(e.pointerId); e.preventDefault();
+  });
+  svg.addEventListener('pointermove', e => { if (drag !== null) setFromEvent(drag, e); });
+  const end = () => { drag = null; };
+  svg.addEventListener('pointerup', end); svg.addEventListener('pointercancel', end);
+  svg.addEventListener('keydown', e => {
+    const h = e.target.closest('.handle'); if (!h) return;
+    const i = +h.dataset.i, d = e.key === 'ArrowUp' ? 0.03 : e.key === 'ArrowDown' ? -0.03 : 0;
+    if (!d) return; e.preventDefault();
+    ys[i] = Math.max(0.03, Math.min(0.97, ys[i] + d)); draw();
+    svg.querySelector(`[data-i="${i}"]`).focus({ preventScroll: true });
+  });
+  host.querySelector('.presets').addEventListener('click', e => {
+    const b = e.target.closest('button[data-p]'); if (!b) return; ys = PRESETS[b.dataset.p].slice(); draw();
+  });
+  draw();
+}
+
+const DEMOS = {
+  "Optimal Rating Design under Moral Hazard": demoRating,
+  "Getting the Agent to Wait": demoWait
+};
+
+
+/* Short plain-language summaries, drafted from each paper's posted abstract only.
+   DRAFTS for Ali's approval (2026-10-27). Papers without an abstract, and the pension
+   paper whose abstract is one sentence, have no summary. */
+const SUMMARIES = {
+  indicator: "When the person paid for performance gets to choose how she is measured, she reveals less than she could, and a simple pass/fail measure is all she needs. This offers a reason for coarse performance measures that depends on who designs them, not on the cost or precision of measurement.",
+  rating: "How should ratings be designed when the people being rated choose how much effort to put in? It depends on whether effort makes extreme outcomes more or less likely: the best ratings lump together the worst outcomes in the first case and the best outcomes in the second.",
+  gooddata: "When a monopoly seller uses consumer data to charge different people different prices, does society gain or lose? The paper shows exactly when more data always helps, always hurts, or has mixed effects, and how large the effects can be in the mixed case.",
+  dac: "How can a decision-maker learn from a large group of advisers who all lean the same way, when no one’s report can be checked against anyone else’s? With many advisers the best rule is simple: it punishes too strong a consensus in the direction the group leans, at some cost in value.",
+  wait: "How should an expert who wants to keep a listener engaged reveal information to a listener who wants answers fast? The pace depends on who is more patient and on whether the two start out agreeing; when they disagree, the expert first sends news that leans toward the listener’s view.",
+  marketmaking: "Can making trading faster and easier leave markets less liquid? Yes: when investors trade more often, their trades reveal less about an asset’s quality, so dealers learn more slowly and widen the gap between their buying and selling prices.",
+  tradepolicy: "Should trade policy respond to a country’s trade deficits? In general, deficits say little about the best policy, and for the U.S., most of the gains from the best policy do not come from adjusting tariffs or controls on capital flows over time.",
+  retirement: "How can retirement financing be reformed efficiently? In a model matched to the U.S. economy, the main inefficiency is too little support for saving late in life, and a reform built on progressive subsidies to savings frees up resources worth a one-time transfer of 10.5 percent of GDP.",
+  screening: "In markets where traders have private information and competition is limited, what each type of trader ends up trading and paying depends on the information problem and market power together. More competition, or less private information, can actually lower welfare.",
+  extfinance: "Privately held firms fund about 80 percent of their investment from outside sources, compared with 20 percent for publicly traded firms. A model matching this finds that financial shocks move output only modestly, casting doubt on them as a major driver of booms and busts.",
+  reputation: "Why does trading in markets for resold loans fall when collateral values fall? When lenders care about their reputation, sellers of good and bad loans behave alike, so doubts about loan quality persist; the outcome is inefficient only when collateral values and lenders’ reputations are both low.",
+  familysize: "When parents choose how many children to have and face shocks only they can see, how unequal should consumption be in the long run? Because family size can be used as part of the incentives, the efficient arrangement no longer drives families’ consumption toward zero over time.",
+  tradepf: "When the gains from trade are unequally shared, should tariffs be used to help those who lose out? For a broad class of economies, no: tariffs are never optimal, and value-added taxes that differ by sector do the redistributing, including in the best response to China’s rise in world trade.",
+  sovereign: "Why do some countries swing between generous spending and austerity? When a government that cares about inequality cannot commit to repaying its foreign debt, the economy cycles between borrowing to fund generous transfers and cutting transfers to pay down debt, much like the populist cycles seen in many developing countries.",
+  pensionincentives: "How should a pension system work when people choose when to retire? It should reward retiring later, and in a version matched to U.S. data, the best system raises both welfare and total output."
+};
+
+/* =========================================================================
+   v3: artwork down the left, papers in the middle, bubbles on the right
+   ========================================================================= */
+
+/* ---------- bring the data in line with the live site (October 2026) ---------- */
+(function syncWithLiveSite() {
+  const ind = NEW_PAPERS.find(p => p.title === 'Indicator Choice in Pay-for-Performance');
+  Object.assign(ind, {
+    status: 'September 2026',
+    draft: 'https://www.andrew.cmu.edu/user/ashourid/papers/finalDraft.pdf',
+    abstract: `We study the classical moral-hazard model with limited liability when the party being measured chooses the performance measure. Before the principal offers a contract, the agent commits to an indicator—any garbling of a fixed performance technology—and compensation can depend only on its realization. She withholds information even when a perfectly informative measure is available, and any implementable outcome can be replicated with a binary pass/fail indicator. We recast her design problem as a geometric game in which she chooses a set of likelihood-ratio vectors and the principal chooses a point in it. We show that the problem reduces, without loss, to the choice of a single vector from the set made feasible by the technology. Using this representation, we characterize when she can implement a given effort, including the first-best effort, while capturing the entire surplus, and show that a more informative technology can reduce equilibrium surplus. For single-index technologies, in which effort enters the output distribution through a scalar index, an optimal indicator is a threshold on output. Our results provide a rationale for coarse performance measures that depends on who holds the design right rather than on the cost or precision of measurement.`
+  });
+  Object.assign(FIG_INDICATOR, { number: 3, caption: 'Geometric representation of information structures in the space of likelihood ratios. The left panel depicts an example with four signals. The right panel shows the principal’s incentives under full revelation of x by the agent.' });
+  NEW_PAPERS.splice(NEW_PAPERS.indexOf(ind), 1);
+  NEW_PAPERS.unshift(ind);
+  FIG_DAC.caption = "Optimal mechanism in the large economy (schematic): accept on an intermediate interval, reject at both extremes. In the disagreement region, the senders prefer accept and the receiver prefers reject. The dashed curve is the distribution of the receiver's payoff from accept in the infinite-population limit.";
+  FIG_WAIT.caption = "A mean-preserving spread of revelation time. The curve e<sup>−δ<sub>A</sub>T</sup> is the agent's payoff if the state is revealed at T. Leaving uninformed at once gives 1/2, as does a sure reveal at log 2/δ<sub>A</sub> (red). With a random reveal time (green points), her expected payoff lies on the green chord, above the curve, so the average reveal can move later, to where the chord meets 1/2, while waiting is still worth 1/2 to her.";
+  UPDATES.length = 0;
+  UPDATES.push(
+    'New version of <a href="#p-indicator" data-open="indicator">Indicator Choice in Pay-for-Performance</a> with Majid Mahzoon and Ariel Zetlin-Jones',
+    'New version of <a href="#p-rating" data-open="rating">Optimal Rating Design under Moral Hazard</a> with Maryam Saeedi',
+    'The 2026 NBER/NSF/CEME Conference in Mathematical Economics is hosted in Pittsburgh in the fall &middot; <a href="https://www.andrew.cmu.edu/user/ashourid/mathecon-2026/" target="_blank" rel="noopener">details</a>'
+  );
+})();
+
+const KEY = {
+  'Indicator Choice in Pay-for-Performance': 'indicator',
+  'Optimal Rating Design under Moral Hazard': 'rating',
+  'Good Data and Bad Data: The Welfare Effects of Price Discrimination': 'gooddata',
+  'Divide and Confer: Aggregating Information without Verification': 'dac',
+  'Getting the Agent to Wait': 'wait',
+  'Optimal Mechanism Design for Multiple Goods via Network Flows': 'network',
+  'Information Disclosure in Matching Markets': 'matching',
+  'Market Making with Search and Information Frictions': 'marketmaking',
+  'Optimal Trade Policy with Trade Imbalances': 'tradepolicy',
+  'Retirement Financing: An Optimal Reform Approach': 'retirement',
+  'Screening and Adverse Selection in a Frictional Market': 'screening',
+  'External Financing and the Role of Financial Frictions over the Business Cycle: Measurement and Theory': 'extfinance',
+  'Reputation and Persistence of Adverse Selection in Secondary Loan Markets': 'reputation',
+  'Optimal Contracting and Dynamic Altruism: Consumption and Family Size': 'familysize',
+  'Optimal Pension Systems with Simple Instruments': 'pensionsimple',
+  'Inequality, Redistribution, and Optimal Trade Policy: A Public Finance Approach': 'tradepf',
+  'Political Economy of Sovereign Debt: A Theory of Cycles of Populism and Austerity': 'sovereign',
+  'Efficiency and Adverse Selection: On the Role of Mutual Contracts': 'mutual',
+  'Optimal Taxation of Wealthy Individual': 'wealth',
+  'Incentives and Efficiency of Pension Systems': 'pensionincentives'
+};
+const GROUPS = [
+  { label: 'New papers', list: NEW_PAPERS },
+  { label: 'Publications', list: PUBLICATIONS },
+  { label: 'Working papers', list: WORKING_PAPERS }
+];
+const ALL = [];
+GROUPS.forEach(g => g.list.forEach(p => ALL.push(Object.assign({ group: g.label, key: KEY[p.title] || 'paper' + ALL.length }, p))));
+
+/* ---------- the middle column ---------- */
+const linksOf = p => [
+  p.draft ? `<a class="pill" href="${p.draft}" target="_blank" rel="noopener">Draft ↗</a>` : '',
+  p.slides ? `<a class="pill" href="${p.slides}" target="_blank" rel="noopener">Slides ↗</a>` : '',
+  p.appendix ? `<a class="pill" href="${p.appendix}" target="_blank" rel="noopener">Appendix ↗</a>` : ''
+].join('');
+
+function renderPapers() {
+  let h = '', i = 0;
+  GROUPS.forEach(g => {
+    h += `<div class="group">${g.label}</div>`;
+    g.list.forEach(() => {
+      const p = ALL[i], l = linksOf(p);
+      h += `<article class="paper" id="p-${p.key}" data-i="${i}">
+        <button class="p-title" type="button" aria-expanded="false" aria-controls="bubble">${p.title}</button>
+        <div class="p-meta">${p.authors}</div>
+        ${p.status ? `<div class="p-status">${p.status}</div>` : ''}
+        ${l ? `<div class="p-links">${l}</div>` : ''}
+      </article>`;
+      i++;
+    });
+  });
+  document.getElementById('papers').innerHTML = h;
+}
+
+function renderLists() {
+  const fill = (id, html) => { document.getElementById(id).innerHTML = html; };
+  fill('updates-list', UPDATES.map(u => `<li><span>${u}</span></li>`).join(''));
+  const person = s => `<div class="person">${s.link ? `<a class="pname" href="${s.link}" target="_blank" rel="noopener">${s.name}</a>` : `<span class="pname">${s.name}</span>`}<div class="pmeta">${s.field}${s.note ? ' · ' + s.note : ''}</div></div>`;
+  fill('current-students-list', CURRENT_STUDENTS.map(person).join(''));
+  fill('graduate-students-list', GRADUATE_STUDENTS.map(person).join(''));
+  fill('coauthors-list', COAUTHORS.map(c => c.link ? `<a href="${c.link}" target="_blank" rel="noopener">${c.name}</a>` : `<span>${c.name}</span>`).join(''));
+  fill('phd-courses-list', PHD_COURSES.map(c => `<li><span>${c}</span><span class="syl">syllabus soon</span></li>`).join(''));
+  fill('mba-courses-list', MBA_COURSES.map(c => `<li><span>${c}</span><span class="syl">syllabus soon</span></li>`).join(''));
+  fill('resources-list', RESOURCES.map(r => `<li><a href="${r.link}" target="_blank" rel="noopener">${r.text}</a></li>`).join(''));
+}
+
+/* ---------- the bubble ---------- */
+const bubble = document.getElementById('bubble');
+const WIDE = matchMedia('(min-width: 1101px)'), PHONE = matchMedia('(max-width: 760px)');
+let openI = -1;
+
+function bubbleHTML(p) {
+  const sum = SUMMARIES[p.key];
+  const lede = sum ? `<div class="b-summary"><div class="eyebrow">In short</div><p>${sum}</p></div>` : '';
+  const abs = p.abstract && p.abstract.trim()
+    ? `<div class="abstract"><div class="eyebrow">Abstract</div><p>${p.abstract}</p></div>`
+    : `<p class="nodraft">Draft coming soon.</p>`;
+  const l = linksOf(p);
+  return `<div class="b-sheet-bar"><span>${p.group}</span><button class="b-close" type="button" aria-label="Close">×</button></div>
+    <button class="b-close" type="button" aria-label="Close">×</button>
+    <div class="stage-kicker">${p.group}${p.status ? ' · ' + p.status : ''}</div>
+    <h3 class="stage-title" id="b-title" tabindex="-1">${p.title}</h3>
+    <div class="stage-authors">${p.authors}</div>
+    ${l ? `<div class="stage-links">${l}</div>` : ''}
+    ${lede}${abs}`;
+}
+
+function renderBubble() {
+  bubble.innerHTML = bubbleHTML(ALL[openI]);
+}
+
+function placeBubble() {
+  if (openI < 0) return;
+  if (!WIDE.matches) { bubble.style.top = bubble.style.left = bubble.style.width = ''; return; }
+  const lane = document.querySelector('.lane').getBoundingClientRect();
+  const row = document.querySelector(`.paper[data-i="${openI}"]`).getBoundingClientRect();
+  bubble.style.left = (lane.left + scrollX) + 'px';
+  bubble.style.width = Math.min(lane.width, 640) + 'px';
+  bubble.style.top = (row.top + scrollY - 2) + 'px';
+}
+
+function placeHint() {
+  const h = document.getElementById('lane-hint'), first = document.querySelector('article.paper');
+  if (!WIDE.matches || !first) return;
+  const lane = document.querySelector('.lane').getBoundingClientRect();
+  h.style.top = (first.getBoundingClientRect().top - lane.top + 8) + 'px';
+}
+const hint = show => { document.getElementById('lane-hint').style.opacity = show ? '1' : '0'; };
+
+function markRows(i) {
+  document.querySelectorAll('article.paper').forEach(a => {
+    const on = +a.dataset.i === i;
+    a.classList.toggle('open', on);
+    a.querySelector('.p-title').setAttribute('aria-expanded', String(on));
+  });
+}
+
+function openPaper(i, focus = true) {
+  if (i === openI && !bubble.hidden) { closeBubble(); return; }
+  openI = i;
+  markRows(i);
+  renderBubble();
+  bubble.hidden = false; bubble.classList.remove('show');
+  placeBubble();
+  requestAnimationFrame(() => requestAnimationFrame(() => bubble.classList.add('show')));
+  document.body.classList.toggle('sheet-open', PHONE.matches);
+  lightGlyph(ALL[i].key);
+  hint(false);
+  if (focus) bubble.querySelector('.stage-title').focus({ preventScroll: true });
+  if (WIDE.matches) {   // bring the paper and its bubble up if the paper sits low on the screen
+    const r = document.querySelector(`.paper[data-i="${i}"]`).getBoundingClientRect();
+    if (r.top > innerHeight * 0.45 || r.top < 60) window.scrollTo({ top: scrollY + r.top - 96, behavior: 'smooth' });
+  }
+  try { history.replaceState(null, '', '#p-' + ALL[i].key); } catch (e) { /* file:// */ }
+}
+
+function closeBubble() {
+  if (openI < 0) return;
+  const row = document.querySelector(`.paper[data-i="${openI}"] .p-title`);
+  bubble.classList.remove('show'); bubble.hidden = true; bubble.innerHTML = '';
+  markRows(-1);
+  document.body.classList.remove('sheet-open');
+  lightGlyph(null); hint(true);
+  openI = -1;
+  if (row) row.focus({ preventScroll: true });
+  try { history.replaceState(null, '', location.pathname + location.search); } catch (e) { /* file:// */ }
+}
+
+/* =========================================================================
+   THE ARTWORK (substance version): a tall painting down the left edge of
+   the page, made of flat pictograms of what the research is about, in the
+   spirit of Isotype picture statistics: people holding private information,
+   ratings that lump the worst results together, a crowd advising a judge,
+   waiting for a sealed answer, prices set from data, taxes moving coins,
+   saving over a life, trade past a tariff gate, a dealer's booth, a bank and
+   its reputation, families, cycles of spending and austerity, matching,
+   goods flowing through a network, a shared umbrella, and a game board.
+   ========================================================================= */
+const SVGN = 'http://www.w3.org/2000/svg';
+const fx = v => v.toFixed(1);
+function add(parent, tag, attrs) { const e = document.createElementNS(SVGN, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); parent.appendChild(e); return e; }
+const lineD = P => 'M' + P.map(p => fx(p[0]) + ' ' + fx(p[1])).join('L');
+function smoothD(P) {
+  if (P.length < 3) return lineD(P);
+  let d = `M${fx(P[0][0])} ${fx(P[0][1])}`;
+  for (let i = 0; i < P.length - 1; i++) {
+    const p0 = P[i - 1] || P[i], p1 = P[i], p2 = P[i + 1], p3 = P[i + 2] || p2;
+    d += `C${fx(p1[0] + (p2[0] - p0[0]) / 6)} ${fx(p1[1] + (p2[1] - p0[1]) / 6)} ${fx(p2[0] - (p3[0] - p1[0]) / 6)} ${fx(p2[1] - (p3[1] - p1[1]) / 6)} ${fx(p2[0])} ${fx(p2[1])}`;
+  }
+  return d;
+}
+function rand(seed) {
+  let a = seed >>> 0;
+  return () => { a = (a + 0x6D2B79F5) >>> 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
+}
+const lightGlyph = () => {};
+
+const SCENES = ['cards', 'rating', 'crowd', 'waiting', 'prices', 'indicator', 'taxes', 'lifecycle', 'trade', 'dealer', 'bank', 'family', 'cycles', 'matching', 'flows', 'umbrella', 'board'];
+
+function paint(svg, W, H, seed = 2611) {
+  svg.innerHTML = '';
+  svg.setAttribute('viewBox', `0 0 ${fx(W)} ${fx(H)}`);
+  svg.style.height = H + 'px';
+  const base = Math.max(W, 180);
+
+  const S = rand(seed * 7 + 1);   // soft color fields behind everything
+  for (let y = -60; y < H; y += base * (0.75 + 0.7 * S())) {
+    const k = 1 + Math.floor(S() * 4);
+    if (S() < 0.55) add(svg, 'circle', { cx: fx(W * (0.05 + 0.9 * S())), cy: fx(y), r: fx(base * (0.4 + 0.45 * S())), class: 'soft f' + k });
+    else add(svg, 'rect', { x: fx(W * (-0.2 + 0.6 * S())), y: fx(y), width: fx(W * (0.45 + 0.6 * S())), height: fx(base * (0.7 + 1.3 * S())), rx: fx(base * 0.05), class: 'soft f' + k });
+  }
+
+  function scene(name, cx, cy, s, cols, flip) {
+    const g = add(svg, 'g', { class: 'mo' });
+    const X = u => cx + (flip ? -u : u) * s, Y = v => cy + v * s, P = (u, v) => [X(u), Y(v)];
+    const F = k => 'f' + cols[k % cols.length];
+    const rect = (u, v, w, h, cls, rx = 0) => add(g, 'rect', { x: fx(flip ? X(u + w) : X(u)), y: fx(Y(v)), width: fx(w * s), height: fx(h * s), rx: fx(rx * s), class: cls });
+    const circ = (u, v, r, cls) => add(g, 'circle', { cx: fx(X(u)), cy: fx(Y(v)), r: fx(r * s), class: cls });
+    const poly = (pts, cls) => add(g, 'path', { d: lineD(pts.map(p => P(p[0], p[1]))) + 'Z', class: cls });
+    const line = (pts, cls, smooth) => add(g, 'path', { d: (smooth ? smoothD : lineD)(pts.map(p => P(p[0], p[1]))), class: cls });
+    const text = (u, v, t, size) => { const e = add(g, 'text', { x: fx(X(u)), y: fx(Y(v)), 'font-size': fx(size * s), 'text-anchor': 'middle', class: 'gt' }); e.textContent = t; };
+    const arc = (u0, v0, r, a0, a1, n = 24) => Array.from({ length: n + 1 }, (_, j) => { const a = a0 + (a1 - a0) * j / n; return [u0 + r * Math.cos(a), v0 + r * Math.sin(a)]; });
+    const person = (u, feet, h, cls) => { rect(u - 0.21 * h, feet - 0.64 * h, 0.42 * h, 0.64 * h, cls, 0.17 * h); circ(u, feet - 0.83 * h, 0.13 * h, cls); };
+    const coin = (u, v, w, cls) => { rect(u - w / 2, v, w, 0.04, cls, 0.012); line([[u - w / 2 + 0.01, v + 0.02], [u + w / 2 - 0.01, v + 0.02]], 'ink thin'); };
+    const PI = Math.PI;
+    switch (name) {
+      case 'cards': {                 // one side holds a card the other cannot see
+        line([[-0.46, 0.3], [0.46, 0.3]], 'ink');
+        line([[-0.36, 0.3], [-0.36, 0.46]], 'ink thin'); line([[0.36, 0.3], [0.36, 0.46]], 'ink thin');
+        person(-0.27, 0.3, 0.52, F(0));
+        poly([[-0.15, -0.14], [-0.01, -0.18], [0.04, 0.05], [-0.1, 0.09]], F(1));
+        line([[-0.12, -0.1], [0.0, -0.13]], 'ink thin'); line([[-0.1, -0.03], [0.02, -0.06]], 'ink thin'); line([[-0.08, 0.04], [0.03, 0.01]], 'ink thin');
+        person(0.29, 0.3, 0.46, F(2));
+        circ(0.3, -0.33, 0.11, 'bubble'); poly([[0.25, -0.24], [0.26, -0.15], [0.31, -0.23]], 'bubble');
+        text(0.3, -0.285, '?', 0.15);
+        break;
+      }
+      case 'rating': {                // the best get their own grade; the rest share one
+        const radii = [0.075, 0.065, 0.055, 0.047, 0.04, 0.034];
+        radii.forEach((r, k) => circ(-0.38 + k * 0.15, -0.32, r, F(k % 3)));
+        line([[-0.47, -0.22], [0.47, -0.22]], 'ink');
+        const targets = [-0.385, -0.225, 0.0, 0.1, 0.2, 0.3];
+        radii.forEach((r, k) => line([[-0.38 + k * 0.15, -0.21], [targets[k], 0.13]], 'ink thin dash'));
+        rect(-0.45, 0.15, 0.13, 0.27, F(1), 0.02); text(-0.385, 0.34, 'A', 0.13);
+        rect(-0.29, 0.15, 0.13, 0.27, F(2), 0.02); text(-0.225, 0.34, 'B', 0.13);
+        rect(-0.12, 0.15, 0.56, 0.27, F(0), 0.02); text(0.16, 0.34, 'C', 0.13);
+        break;
+      }
+      case 'crowd': {                 // many small pieces of evidence, one decision
+        for (let r = 0; r < 3; r++) for (let c = 0; c < 5; c++) person(-0.43 + c * 0.1 + (r % 2) * 0.05, 0.12 + r * 0.15, 0.13, F((r + c) % 3));
+        rect(0.17, 0.12, 0.28, 0.32, F(1), 0.02);
+        person(0.31, 0.12, 0.36, F(2));
+        circ(0.24, -0.38, 0.05, 'f4'); circ(0.38, -0.38, 0.05, 'f1 dim');
+        for (let k = 0; k < 6; k++) circ(-0.07 + k * 0.045, -0.02 - 0.08 * Math.sin(k / 5 * PI), 0.012, 'inkfill');
+        break;
+      }
+      case 'waiting': {               // an answer in a sealed envelope, and a clock
+        circ(-0.2, -0.2, 0.23, F(2));
+        add(g, 'circle', { cx: fx(X(-0.2)), cy: fx(Y(-0.2)), r: fx(0.23 * s), class: 'ink' });
+        for (let k = 0; k < 12; k++) { const a = k * PI / 6; line([[-0.2 + 0.19 * Math.cos(a), -0.2 + 0.19 * Math.sin(a)], [-0.2 + 0.22 * Math.cos(a), -0.2 + 0.22 * Math.sin(a)]], 'ink thin'); }
+        line([[-0.2, -0.2], [-0.2, -0.36]], 'ink thick'); line([[-0.2, -0.2], [-0.08, -0.14]], 'ink');
+        circ(-0.2, -0.2, 0.015, 'inkfill');
+        person(-0.32, 0.46, 0.34, F(0));
+        rect(-0.16, 0.2, 0.16, 0.11, 'blank', 0.01);
+        line([[-0.16, 0.2], [-0.08, 0.26], [0.0, 0.2]], 'ink thin'); circ(-0.08, 0.265, 0.018, F(0));
+        line([[0.13, 0.46], [0.13, 0.2], [0.33, 0.2], [0.33, 0.46]], 'ink'); line([[0.13, 0.2], [0.13, -0.04]], 'ink');
+        rect(0.15, -0.04, 0.17, 0.24, F(1), 0.06); circ(0.235, -0.12, 0.065, F(1));
+        circ(0.36, -0.3, 0.012, 'inkfill'); circ(0.4, -0.3, 0.012, 'inkfill'); circ(0.44, -0.3, 0.012, 'inkfill');
+        break;
+      }
+      case 'prices': {                // the same good, a different price for each buyer the seller knows about
+        const xs = [-0.3, 0.0, 0.3], tops = [-0.02, -0.24, -0.12], sz = [0.1, 0.15, 0.12];
+        xs.forEach((u, k) => {
+          person(u, 0.44, 0.34, F(k + 1));
+          const t = tops[k], w = sz[k];
+          poly([[u - w / 2, t], [u + w / 2, t], [u + w / 2, t + w * 0.7], [u - w / 2, t + w * 0.7], [u - w / 2 - 0.04, t + w * 0.35]], F(k));
+          circ(u - w / 2 + 0.005, t + w * 0.35, 0.012, 'paperdot');
+          line([[u, t + w * 0.7], [u, 0.14]], 'ink thin');
+        });
+        add(g, 'circle', { cx: fx(X(0.3)), cy: fx(Y(-0.38)), r: fx(0.075 * s), class: 'ink thick' });
+        line([[0.355, -0.33], [0.45, -0.25]], 'ink thick');
+        for (let k = 0; k < 5; k++) circ(-0.3 + k * 0.12, -0.38 + 0.03 * Math.sin(k), 0.011, 'inkfill');
+        break;
+      }
+      case 'indicator': {             // pay by a measure: pass or fail
+        const C = [0, 0.08], r = 0.38;
+        poly([C, ...arc(C[0], C[1], r, PI, PI * 1.42)], F(0));
+        poly([C, ...arc(C[0], C[1], r, PI * 1.42, PI * 2)], F(1));
+        line(arc(C[0], C[1], r, PI, PI * 2, 40), 'ink');
+        line([C, [C[0] + 0.3 * Math.cos(PI * 1.72), C[1] + 0.3 * Math.sin(PI * 1.72)]], 'ink thick');
+        circ(C[0], C[1], 0.025, 'inkfill');
+        circ(-0.3, 0.32, 0.07, F(0)); line([[-0.33, 0.29], [-0.27, 0.35]], 'ink thick'); line([[-0.27, 0.29], [-0.33, 0.35]], 'ink thick');
+        circ(0.3, 0.32, 0.07, F(1)); line([[0.26, 0.32], [0.29, 0.355], [0.345, 0.285]], 'ink thick');
+        person(0, 0.48, 0.28, F(2));
+        break;
+      }
+      case 'taxes': {                 // taxes move coins from tall stacks to short ones
+        line([[-0.47, 0.42], [0.47, 0.42]], 'ink');
+        for (let k = 0; k < 9; k++) coin(-0.28, 0.38 - k * 0.05, 0.2, F(0));
+        for (let k = 0; k < 3; k++) coin(0.28, 0.38 - k * 0.05, 0.2, F(0));
+        line([[-0.22, -0.1], [-0.08, -0.32], [0.12, -0.32], [0.26, 0.2]], 'ink', true);
+        poly([[0.26, 0.26], [0.22, 0.17], [0.3, 0.17]], 'inkfill');
+        circ(0.18, -0.12, 0.03, F(0)); circ(0.23, 0.02, 0.03, F(0));
+        text(0.0, -0.36, '%', 0.13);
+        break;
+      }
+      case 'lifecycle': {             // saving while working, spending in retirement
+        line([[-0.47, 0.44], [0.47, 0.44]], 'ink');
+        person(-0.38, 0.44, 0.2, F(2));
+        person(-0.12, 0.44, 0.44, F(1)); rect(-0.03, 0.2, 0.11, 0.08, F(0), 0.01); line([[0.0, 0.2], [0.0, 0.18], [0.05, 0.18], [0.05, 0.2]], 'ink thin');
+        person(0.22, 0.44, 0.4, F(0)); line([[0.33, 0.44], [0.31, 0.14], [0.27, 0.12]], 'ink thick');
+        rect(0.3, -0.4, 0.16, 0.22, 'blank', 0.03); rect(0.305, -0.29, 0.15, 0.105, F(2), 0.02); line([[0.29, -0.41], [0.47, -0.41]], 'ink');
+        line([[-0.06, -0.08], [0.1, -0.3], [0.28, -0.3]], 'ink thin dash', true);
+        line([[0.38, -0.16], [0.36, -0.05], [0.26, 0.04]], 'ink thin dash', true);
+        break;
+      }
+      case 'trade': {                 // goods crossing the sea, and a gate on the far shore
+        poly([[-0.5, 0.2], ...Array.from({ length: 21 }, (_, j) => [-0.5 + j * 0.05, 0.2 + 0.015 * Math.sin(j * 1.6)]), [0.5, 0.46], [-0.5, 0.46]], 'f2');
+        poly([[-0.42, 0.06], [0.24, 0.06], [0.15, 0.23], [-0.34, 0.23]], F(0));
+        rect(-0.36, -0.08, 0.13, 0.13, F(1)); rect(-0.22, -0.08, 0.13, 0.13, F(2)); rect(-0.08, -0.08, 0.13, 0.13, F(1)); rect(-0.29, -0.21, 0.13, 0.13, F(2));
+        rect(0.34, 0.1, 0.18, 0.36, 'f3');
+        rect(0.4, -0.3, 0.03, 0.4, 'inkfill');
+        for (let k = 0; k < 6; k++) rect(0.4 - (k + 1) * 0.06, -0.27, 0.06, 0.035, k % 2 ? 'blank' : 'f1');
+        break;
+      }
+      case 'dealer': {                // a dealer between buyers and sellers, quoting two prices
+        for (let k = 0; k < 6; k++) poly([[-0.24 + k * 0.08, -0.14], [-0.16 + k * 0.08, -0.14], [-0.2 + k * 0.08, -0.05]], k % 2 ? 'blank' : F(0));
+        line([[-0.24, -0.14], [0.24, -0.14]], 'ink');
+        circ(0, 0.04, 0.06, F(2));
+        rect(-0.22, 0.12, 0.44, 0.3, F(1), 0.01);
+        rect(-0.2, -0.38, 0.17, 0.14, 'blank', 0.01); text(-0.115, -0.285, 'bid', 0.07);
+        rect(0.03, -0.44, 0.17, 0.2, 'blank', 0.01); text(0.115, -0.32, 'ask', 0.07);
+        person(-0.4, 0.44, 0.3, F(0)); rect(-0.33, 0.2, 0.08, 0.08, F(2), 0.01);
+        person(0.4, 0.44, 0.3, F(2));
+        break;
+      }
+      case 'bank': {                  // a bank, its loans, and its reputation
+        poly([[-0.36, -0.12], [0, -0.32], [0.36, -0.12]], F(1));
+        rect(-0.36, -0.12, 0.72, 0.05, F(1));
+        for (let k = 0; k < 4; k++) rect(-0.29 + k * 0.17, -0.06, 0.07, 0.31, 'blank', 0.01);
+        rect(-0.4, 0.26, 0.8, 0.05, F(1)); rect(-0.44, 0.31, 0.88, 0.05, F(1));
+        const star = Array.from({ length: 10 }, (_, j) => { const a = -PI / 2 + j * PI / 5, rr = j % 2 ? 0.035 : 0.08; return [rr * Math.cos(a), -0.43 + rr * Math.sin(a)]; });
+        poly(star, F(2));
+        rect(0.38, -0.04, 0.1, 0.13, 'blank', 0.01); line([[0.4, 0.0], [0.46, 0.0]], 'ink thin'); line([[0.4, 0.04], [0.46, 0.04]], 'ink thin');
+        break;
+      }
+      case 'family': {                // parents, children, and what they leave to them
+        line([[-0.44, -0.1], [0, -0.42], [0.44, -0.1]], 'ink thin');
+        person(-0.14, 0.2, 0.44, F(0)); person(0.14, 0.2, 0.4, F(1));
+        person(-0.24, 0.47, 0.22, F(2)); person(0.0, 0.47, 0.25, F(0)); person(0.22, 0.47, 0.2, F(1));
+        break;
+      }
+      case 'cycles': {                // governments swinging between spending and austerity
+        rect(-0.22, -0.2, 0.44, 0.1, F(1));
+        poly([[-0.15, -0.2], ...arc(0, -0.2, 0.15, PI, 2 * PI), [0.15, -0.2]], F(1));
+        rect(-0.02, -0.42, 0.04, 0.08, F(1));
+        for (let k = 0; k < 5; k++) rect(-0.19 + k * 0.08, -0.1, 0.035, 0.12, 'blank');
+        line([[0, 0.02], [0.2, 0.3]], 'ink'); circ(0.21, 0.31, 0.05, F(0));
+        line(arc(0, 0.02, 0.36, PI * 0.22, PI * 0.78, 30), 'ink thin dash');
+        for (let k = 0; k < 5; k++) circ(-0.42 + (k % 3) * 0.06, 0.4 - Math.floor(k / 3) * 0.06, 0.03, F(2));
+        for (let k = 0; k < 3; k++) coin(0.38, 0.4 - k * 0.05, 0.12, F(2));
+        break;
+      }
+      case 'matching': {              // two sides of a market, matched in pairs
+        const ys = [-0.12, 0.15, 0.42];
+        ys.forEach((v, k) => { person(-0.32, v, 0.24, F(k)); person(0.32, v, 0.24, F(k + 1)); });
+        [[0, 1], [1, 0], [2, 2]].forEach(([a, b]) => line([[-0.22, ys[a] - 0.12], [0, (ys[a] + ys[b]) / 2 - 0.16], [0.22, ys[b] - 0.12]], 'ink', true));
+        break;
+      }
+      case 'flows': {                 // goods routed through a network to buyers
+        const N = [[-0.4, -0.22], [-0.4, 0.22], [0, -0.32], [0, 0.04], [0, 0.36], [0.32, -0.12], [0.32, 0.24]];
+        [[0, 2], [0, 3], [1, 3], [1, 4], [2, 5], [3, 5], [3, 6], [4, 6]].forEach(([a, b]) => add(g, 'path', { d: lineD([P(...N[a]), P(...N[b])]), class: 'pipe', style: `stroke-width:${fx(0.035 * s)}` }));
+        N.forEach(p => circ(p[0], p[1], 0.035, 'blank'));
+        [[-0.2, -0.27, 0], [-0.2, 0.13, 2], [0.16, -0.21, 1], [0.16, 0.3, 0]].forEach(([u, v, c]) => rect(u - 0.035, v - 0.035, 0.07, 0.07, F(c), 0.01));
+        person(0.45, -0.02, 0.17, F(1)); person(0.45, 0.34, 0.17, F(2));
+        break;
+      }
+      case 'umbrella': {              // a mutual: one cover shared by a group
+        poly([...arc(0, -0.04, 0.42, PI, 2 * PI, 32)], F(0));
+        for (let k = 1; k < 4; k++) line([[0, -0.46], [-0.42 + k * 0.21, -0.04]], 'ink thin');
+        line([[0, -0.46], [0, 0.3]], 'ink thick'); line([[0, 0.3], [0.04, 0.34], [0.08, 0.3]], 'ink thick', true);
+        person(-0.25, 0.46, 0.3, F(1)); person(0.25, 0.46, 0.28, F(2)); person(0.08, 0.46, 0.24, F(1));
+        for (let k = 0; k < 4; k++) line([[-0.48 + k * 0.03, -0.12 + k * 0.1], [-0.46 + k * 0.03, -0.07 + k * 0.1]], 'ink thin');
+        break;
+      }
+      case 'board': {                 // the rules of the game
+        for (let i = 0; i < 4; i++) for (let j = 0; j < 4; j++) rect(-0.36 + i * 0.18, -0.36 + j * 0.18, 0.18, 0.18, (i + j) % 2 ? 'blank' : F(2) + ' tint');
+        add(g, 'rect', { x: fx(flip ? X(0.36) : X(-0.36)), y: fx(Y(-0.36)), width: fx(0.72 * s), height: fx(0.72 * s), class: 'ink' });
+        [[0, 0, 0], [2, 1, 1], [1, 3, 0], [3, 2, 1]].forEach(([i, j, c]) => person(-0.27 + i * 0.18, -0.21 + j * 0.18, 0.13, F(c)));
+        break;
+      }
+    }
+  }
+
+  const R = rand(seed);
+  const order = SCENES.slice();
+  for (let i = order.length - 1; i > 0; i--) { const j = Math.floor(R() * (i + 1)); [order[i], order[j]] = [order[j], order[i]]; }
+  let y = 30, k = 0, prev = 0;
+  while (y < H + base * 0.1) {
+    const s = base * (0.7 + 0.32 * R());
+    const main = 1 + ((prev + Math.floor(R() * 3)) % 4);
+    const cols = [main, 1 + (main % 4), 1 + ((main + 1) % 4)];
+    const cx = W * (0.4 + 0.2 * R());
+    scene(order[k % order.length], cx, y + s / 2, s, cols, R() < 0.5);
+    prev = main; k++;
+    y += s * (0.95 + 0.12 * R());
+  }
+}
+
+function drawArt() {
+  const art = document.getElementById('art'), svg = document.getElementById('art-svg');
+  const W = art.clientWidth, H = art.clientHeight;
+  if (!W || !H) return;
+  paint(svg, W, H);
+}
+
+/* ---------- wiring ---------- */
+renderLists();
+renderPapers();
+
+document.getElementById('papers').addEventListener('click', e => {
+  if (e.target.closest('a')) return;
+  const a = e.target.closest('.paper'); if (a) openPaper(+a.dataset.i);
+});
+document.getElementById('updates-list').addEventListener('click', e => {
+  const a = e.target.closest('[data-open]'); if (!a) return;
+  e.preventDefault();
+  openPaper(ALL.findIndex(p => p.key === a.dataset.open), false);
+});
+bubble.addEventListener('click', e => {
+  if (e.target.closest('.b-close')) { closeBubble(); return; }
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && !bubble.hidden) closeBubble(); });
+document.getElementById('theme-btn').addEventListener('click', () => {
+  const root = document.documentElement;
+  const dark = root.getAttribute('data-theme') === 'dark' || (!root.getAttribute('data-theme') && matchMedia('(prefers-color-scheme: dark)').matches);
+  root.setAttribute('data-theme', dark ? 'light' : 'dark');
+});
+
+function relayout() { drawArt(); placeBubble(); placeHint(); document.body.classList.toggle('sheet-open', PHONE.matches && openI >= 0); }
+let rt = 0;
+addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(relayout, 120); });
+relayout();
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(relayout);
+addEventListener('load', relayout);
+
+const fromHash = location.hash.startsWith('#p-') ? ALL.findIndex(p => '#p-' + p.key === location.hash) : -1;
+if (fromHash >= 0) { document.getElementById('p-' + ALL[fromHash].key).scrollIntoView({ block: 'start' }); openPaper(fromHash, false); }
+
+</script>
 </body>
 </html>
